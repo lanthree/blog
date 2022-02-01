@@ -1,0 +1,55 @@
+baseURL = 'https://engineers.cool/'
+languageCode = 'en-us'
+title = 'Engineers Cool'
+theme = "researcher"
+enableEmoji = true
+
+[params]
+  author = "lanthree"
+  description = "A simple monospaced resume theme for Hugo."
+  favicon = "favicon.ico"  # path to a .ico to use as favicon
+  logo = ""  # url or path to a logo to put in the header
+  [params.footer]
+    text = "By Lanthree"
+    url = "https://github.com/ojroques/hugo-researcher"
+    beian = "粤ICP备2021050312号"
+  [params.style]  # appearance options (can be omitted)
+    fontFamily = "Inconsolata"
+    pageWidth = "750px"
+    avatarSize = "90px"
+    colorBlack = "#222222"
+    colorRed = "#dc3545"
+#  [[params.socialIcons]]
+#    icon = "fab fa-twitter"
+#    title = "Twitter"
+#    url = "https://twitter.com/"
+  [[params.socialIcons]]
+    icon = "fas fa-envelope"
+    title = "E-mail"
+    url = "mailto:lanthree@qq.com"
+
+[permalinks]
+  "/" = "/:filename"
+
+[menu]
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts"
+    weight = 1
+  [[menu.main]]
+    name = "Categories"
+    url = "/categories"
+    weight = 2
+#  [[menu.main]]
+#  [[menu.main]]
+#    name = "Resume"
+#    url = "/resume.pdf"
+#    # 'pre' and 'post' hooks are available
+#    weight = 2
+#  [[menu.main]]
+#    name = "Contact"
+#    url = "/contact"
+#    weight = 3
+
+[markup.goldmark.renderer]
+  unsafe = true  # allow raw HTML in markdown files
