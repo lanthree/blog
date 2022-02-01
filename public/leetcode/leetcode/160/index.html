@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        160. 相交链表
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">原题链接</a></p>
+<p>如果可以用O(n)的额外存储，可以先遍历第一个链表，存储所有遍历过的地址，然后遍历第二个链表，看是否有已遍历过的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * struct ListNode {
+</span><span style="color:#75715e"> *     int val;
+</span><span style="color:#75715e"> *     ListNode *next;
+</span><span style="color:#75715e"> *     ListNode(int x) : val(x), next(NULL) {}
+</span><span style="color:#75715e"> * };
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    ListNode <span style="color:#f92672">*</span>getIntersectionNode(ListNode <span style="color:#f92672">*</span>headA, ListNode <span style="color:#f92672">*</span>headB) {
+        set<span style="color:#f92672">&lt;</span>ListNode<span style="color:#f92672">*&gt;</span> vis;
+        <span style="color:#66d9ef">for</span> (ListNode<span style="color:#f92672">*</span> iter <span style="color:#f92672">=</span> headA; iter <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>; iter <span style="color:#f92672">=</span> iter<span style="color:#f92672">-&gt;</span>next)
+            vis.insert(iter);
+        <span style="color:#66d9ef">for</span> (ListNode<span style="color:#f92672">*</span> iter <span style="color:#f92672">=</span> headB; iter <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>; iter <span style="color:#f92672">=</span> iter<span style="color:#f92672">-&gt;</span>next)
+            <span style="color:#66d9ef">if</span> (vis.count(iter)) <span style="color:#66d9ef">return</span> iter;
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
+    }
+};
+</code></pre></div><p>另外一个思路是把其中一个链表反转，并尾部连接到另外一个链表，判断是否有环，有环则有交点。反转的目的是想定位交点的位置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for singly-linked list.
+</span><span style="color:#75715e"> * struct ListNode {
+</span><span style="color:#75715e"> *     int val;
+</span><span style="color:#75715e"> *     ListNode *next;
+</span><span style="color:#75715e"> *     ListNode(int x) : val(x), next(NULL) {}
+</span><span style="color:#75715e"> * };
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    ListNode <span style="color:#f92672">*</span>getIntersectionNode(ListNode <span style="color:#f92672">*</span>headA, ListNode <span style="color:#f92672">*</span>headB) {
+        <span style="color:#66d9ef">int</span> lenA <span style="color:#f92672">=</span> lenList(headA);
+        <span style="color:#66d9ef">int</span> lenB <span style="color:#f92672">=</span> lenList(headB);
+        
+        ListNode<span style="color:#f92672">*</span> endB <span style="color:#f92672">=</span> revertList(headB);
+
+        headB<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> headA;
+        
+        ListNode<span style="color:#f92672">*</span> ans <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        <span style="color:#66d9ef">int</span> lenCircle <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">if</span> (isCircle(headA, lenCircle)) {
+            <span style="color:#75715e">// 有交点
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> inter_pos <span style="color:#f92672">=</span> lenA<span style="color:#f92672">-</span>(lenA<span style="color:#f92672">+</span>lenB<span style="color:#f92672">-</span>lenCircle<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
+
+            ans <span style="color:#f92672">=</span> headA;
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">--</span>inter_pos) {
+                ans <span style="color:#f92672">=</span> ans<span style="color:#f92672">-&gt;</span>next;
+            }
+        }
+
+        headB<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        revertList(endB);
+
+        <span style="color:#66d9ef">return</span> ans;
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+
+    <span style="color:#66d9ef">int</span> lenList(ListNode<span style="color:#f92672">*</span> head) {
+        <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> (ListNode<span style="color:#f92672">*</span> curr <span style="color:#f92672">=</span> head; curr <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>; curr <span style="color:#f92672">=</span> curr<span style="color:#f92672">-&gt;</span>next) <span style="color:#f92672">++</span>len;
+        <span style="color:#66d9ef">return</span> len;
+    }
+
+    ListNode<span style="color:#f92672">*</span> <span style="color:#a6e22e">revertList</span>(ListNode<span style="color:#f92672">*</span> head) {
+        ListNode<span style="color:#f92672">*</span> prev <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+        <span style="color:#66d9ef">while</span> (head) {
+            ListNode<span style="color:#f92672">*</span> nxt <span style="color:#f92672">=</span> head<span style="color:#f92672">-&gt;</span>next;
+            head<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> prev;
+            prev <span style="color:#f92672">=</span> head;
+            head <span style="color:#f92672">=</span> nxt;
+        }
+        <span style="color:#66d9ef">return</span> prev;
+    }
+
+    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isCircle</span>(ListNode<span style="color:#f92672">*</span> head, <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span> length) {
+        length <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        ListNode<span style="color:#f92672">*</span> curr <span style="color:#f92672">=</span> head<span style="color:#f92672">-&gt;</span>next;
+        <span style="color:#66d9ef">while</span>(curr) {
+            <span style="color:#66d9ef">if</span> (curr <span style="color:#f92672">==</span> head) <span style="color:#66d9ef">return</span> true;
+            curr <span style="color:#f92672">=</span> curr<span style="color:#f92672">-&gt;</span>next;
+            <span style="color:#f92672">++</span>length;
+        }
+        <span style="color:#66d9ef">return</span> false;
+    }
+};
+</code></pre></div><p>官方给了一个简单很多的空间复杂度O(1)的解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    ListNode <span style="color:#f92672">*</span>getIntersectionNode(ListNode <span style="color:#f92672">*</span>headA, ListNode <span style="color:#f92672">*</span>headB) {
+        <span style="color:#66d9ef">if</span> (headA <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">||</span> headB <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;
+        }
+        ListNode <span style="color:#f92672">*</span>pA <span style="color:#f92672">=</span> headA, <span style="color:#f92672">*</span>pB <span style="color:#f92672">=</span> headB;
+        <span style="color:#66d9ef">while</span> (pA <span style="color:#f92672">!=</span> pB) {
+            pA <span style="color:#f92672">=</span> pA <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">?</span> headB : pA<span style="color:#f92672">-&gt;</span>next;
+            pB <span style="color:#f92672">=</span> pB <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">?</span> headA : pB<span style="color:#f92672">-&gt;</span>next;
+        }
+        <span style="color:#66d9ef">return</span> pA;
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>

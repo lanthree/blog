@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        140. 单词拆分 II
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/word-break-ii/">原题链接</a></p>
+<p>字典树 + DFS即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">TriNode</span> {
+        TriNode() <span style="color:#f92672">:</span> children(<span style="color:#ae81ff">26</span>, <span style="color:#66d9ef">nullptr</span>), is_word(false) {}
+        vector<span style="color:#f92672">&lt;</span>TriNode<span style="color:#f92672">*&gt;</span> children;
+        <span style="color:#66d9ef">bool</span> is_word;
+    };
+
+    TriNode root;
+    vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> solutions;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> wordBreak(string s, vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> wordDict) {
+        _buildByDict(wordDict);
+        <span style="color:#75715e">// _printDict();
+</span><span style="color:#75715e"></span>
+        string solution;
+        _dfs(solution, s, <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">return</span> solutions;
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> _dfs(string solution, string<span style="color:#f92672">&amp;</span> s, <span style="color:#66d9ef">int</span> idx) {
+        <span style="color:#66d9ef">if</span> (idx <span style="color:#f92672">==</span> s.length()) {
+            solutions.push_back(solution);
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        TriNode<span style="color:#f92672">*</span> node <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>root;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> idx; i <span style="color:#f92672">&lt;</span> s.length(); <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">int</span> c_idx <span style="color:#f92672">=</span> s[i]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;a&#39;</span>;
+            <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>children[c_idx] <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+                <span style="color:#66d9ef">return</span>;
+            }
+            solution.push_back(s[i]);
+            node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>children[c_idx];
+            <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>is_word) {
+                <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">!=</span> s.length()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+                    solution.push_back(<span style="color:#e6db74">&#39; &#39;</span>);
+                _dfs(solution, s, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+                <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">!=</span> s.length()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+                    solution.pop_back();
+            }
+        }
+    }
+
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_buildByDict</span>(vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> wordDict) {
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> word : wordDict) {
+            _build(root, word, <span style="color:#ae81ff">0</span>);
+        }
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_printDict</span>() {
+        string word;
+        _print_dict(root, word);
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_build</span>(TriNode<span style="color:#f92672">&amp;</span> node, string<span style="color:#f92672">&amp;</span> word, <span style="color:#66d9ef">int</span> idx) {
+        <span style="color:#66d9ef">if</span> (idx <span style="color:#f92672">==</span> word.size()) {
+            node.is_word <span style="color:#f92672">=</span> true;
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        <span style="color:#66d9ef">char</span> c_idx <span style="color:#f92672">=</span> word[idx] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+        <span style="color:#66d9ef">if</span> (node.children[c_idx] <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+            node.children[c_idx] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TriNode();
+        }
+        _build(<span style="color:#f92672">*</span>node.children[c_idx], word, idx<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_print_dict</span>(TriNode<span style="color:#f92672">&amp;</span> node, string<span style="color:#f92672">&amp;</span> word) {
+        <span style="color:#66d9ef">if</span> (node.is_word) {
+            cout <span style="color:#f92672">&lt;&lt;</span> word <span style="color:#f92672">&lt;&lt;</span> endl;
+        }
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">26</span>; <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">if</span> (node.children[i] <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+                <span style="color:#66d9ef">continue</span>;
+            }
+
+            word.push_back(<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">+</span>i);
+            _print_dict(<span style="color:#f92672">*</span>node.children[i], word);
+            word.pop_back();
+        }
+    }
+};
+</code></pre></div><p>另外可以用记忆数组减少重复计算：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">TriNode</span> {
+        TriNode() <span style="color:#f92672">:</span> children(<span style="color:#ae81ff">26</span>, <span style="color:#66d9ef">nullptr</span>), is_word(false) {}
+        vector<span style="color:#f92672">&lt;</span>TriNode<span style="color:#f92672">*&gt;</span> children;
+        <span style="color:#66d9ef">bool</span> is_word;
+    };
+
+    TriNode root;
+    unordered_map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&gt;</span> solutions;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> wordBreak(string s, vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> wordDict) {
+        _buildByDict(wordDict);
+
+        _dfs(s, <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">return</span> solutions[<span style="color:#ae81ff">0</span>];
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> _dfs(string<span style="color:#f92672">&amp;</span> s, <span style="color:#66d9ef">int</span> idx) {
+        <span style="color:#66d9ef">if</span> (solutions.count(idx)) {
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        <span style="color:#66d9ef">if</span> (idx <span style="color:#f92672">==</span> s.length()) {
+            solutions[idx] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;&#34;</span>};
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        TriNode<span style="color:#f92672">*</span> node <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>root;
+        string word;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> idx; i <span style="color:#f92672">&lt;</span> s.length(); <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">int</span> c_idx <span style="color:#f92672">=</span> s[i]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;a&#39;</span>;
+            <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>children[c_idx] <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+                <span style="color:#66d9ef">return</span>;
+            }
+            word.push_back(s[i]);
+            node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>children[c_idx];
+            <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>is_word) {
+                _dfs(s, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> sub_sol : solutions[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]) {
+                    solutions[idx].push_back( word <span style="color:#f92672">+</span> (sub_sol.empty() <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> sub_sol));
+                }
+            }
+        }
+    }
+
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_buildByDict</span>(vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> wordDict) {
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> word : wordDict) {
+            _build(root, word, <span style="color:#ae81ff">0</span>);
+        }
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">_build</span>(TriNode<span style="color:#f92672">&amp;</span> node, string<span style="color:#f92672">&amp;</span> word, <span style="color:#66d9ef">int</span> idx) {
+        <span style="color:#66d9ef">if</span> (idx <span style="color:#f92672">==</span> word.size()) {
+            node.is_word <span style="color:#f92672">=</span> true;
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        <span style="color:#66d9ef">char</span> c_idx <span style="color:#f92672">=</span> word[idx] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+        <span style="color:#66d9ef">if</span> (node.children[c_idx] <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+            node.children[c_idx] <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TriNode();
+        }
+        _build(<span style="color:#f92672">*</span>node.children[c_idx], word, idx<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+    }
+};
+</code></pre></div><p>最后，字典树在这里有点大才小用了，可以直接用集合查找：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+    unordered_map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&gt;</span> solutions;
+    unordered_set<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> words;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> wordBreak(string s, vector<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;&amp;</span> wordDict) {
+        words.insert(wordDict.begin(), wordDict.end());
+        _dfs(s, <span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">return</span> solutions[<span style="color:#ae81ff">0</span>];
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> _dfs(string<span style="color:#f92672">&amp;</span> s, <span style="color:#66d9ef">int</span> idx) {
+        <span style="color:#66d9ef">if</span> (solutions.count(idx)) {
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        <span style="color:#66d9ef">if</span> (idx <span style="color:#f92672">==</span> s.length()) {
+            solutions[idx] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;&#34;</span>};
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> idx<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> s.length(); <span style="color:#f92672">++</span>i) {
+            string word <span style="color:#f92672">=</span> s.substr(idx, i<span style="color:#f92672">-</span>idx);
+            <span style="color:#66d9ef">if</span> (words.count(word)) {
+                _dfs(s, i);
+                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> sub_sol : solutions[i]) {
+                    solutions[idx].push_back(word <span style="color:#f92672">+</span> (sub_sol.empty() <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> sub_sol));
+                }
+            }
+        }
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>

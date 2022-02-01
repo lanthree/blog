@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        210. 课程表 II
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/course-schedule-ii/">原题链接</a></p>
+<p>标准的拓扑排序：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> findOrder(<span style="color:#66d9ef">int</span> numCourses, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> prerequisites) {
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> indegree(numCourses, <span style="color:#ae81ff">0</span>);
+        unordered_map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> out_to;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> prerequisites.size(); i<span style="color:#f92672">++</span>) {
+            indegree[ prerequisites[i][<span style="color:#ae81ff">0</span>] ] <span style="color:#f92672">++</span>;
+            out_to[ prerequisites[i][<span style="color:#ae81ff">1</span>] ].push_back(prerequisites[i][<span style="color:#ae81ff">0</span>]);
+        }
+
+        queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> numCourses; i<span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">if</span> (indegree[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                q.push(i);
+            }
+        }
+
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans;
+        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty()) {
+            <span style="color:#66d9ef">int</span> course <span style="color:#f92672">=</span> q.front(); q.pop();
+            ans.push_back(course);
+
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> to_course : out_to[course]) {
+                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">--</span> indegree[to_course] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                    q.push(to_course);
+                }
+            }
+        }
+
+        <span style="color:#66d9ef">if</span> (ans.size() <span style="color:#f92672">!=</span> numCourses) {
+            <span style="color:#66d9ef">return</span> {};
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>官方给出了DFS、BFS两种实现。</p>
+<p>DFS：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#75715e">// 存储有向图
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> edges;
+    <span style="color:#75715e">// 标记每个节点的状态：0=未搜索，1=搜索中，2=已完成
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> visited;
+    <span style="color:#75715e">// 用数组来模拟栈，下标 0 为栈底，n-1 为栈顶
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> result;
+    <span style="color:#75715e">// 判断有向图中是否有环
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> valid <span style="color:#f92672">=</span> true;
+
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> dfs(<span style="color:#66d9ef">int</span> u) {
+        <span style="color:#75715e">// 将节点标记为「搜索中」
+</span><span style="color:#75715e"></span>        visited[u] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#75715e">// 搜索其相邻节点
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 只要发现有环，立刻停止搜索
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> v: edges[u]) {
+            <span style="color:#75715e">// 如果「未搜索」那么搜索相邻节点
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (visited[v] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                dfs(v);
+                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>valid) {
+                    <span style="color:#66d9ef">return</span>;
+                }
+            }
+            <span style="color:#75715e">// 如果「搜索中」说明找到了环
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (visited[v] <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+                valid <span style="color:#f92672">=</span> false;
+                <span style="color:#66d9ef">return</span>;
+            }
+        }
+        <span style="color:#75715e">// 将节点标记为「已完成」
+</span><span style="color:#75715e"></span>        visited[u] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+        <span style="color:#75715e">// 将节点入栈
+</span><span style="color:#75715e"></span>        result.push_back(u);
+    }
+
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> findOrder(<span style="color:#66d9ef">int</span> numCourses, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> prerequisites) {
+        edges.resize(numCourses);
+        visited.resize(numCourses);
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> info: prerequisites) {
+            edges[info[<span style="color:#ae81ff">1</span>]].push_back(info[<span style="color:#ae81ff">0</span>]);
+        }
+        <span style="color:#75715e">// 每次挑选一个「未搜索」的节点，开始进行深度优先搜索
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> numCourses <span style="color:#f92672">&amp;&amp;</span> valid; <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>visited[i]) {
+                dfs(i);
+            }
+        }
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>valid) {
+            <span style="color:#66d9ef">return</span> {};
+        }
+        <span style="color:#75715e">// 如果没有环，那么就有拓扑排序
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// 注意下标 0 为栈底，因此需要将数组反序输出
+</span><span style="color:#75715e"></span>        reverse(result.begin(), result.end());
+        <span style="color:#66d9ef">return</span> result;
+    }
+};
+</code></pre></div><p>BFS，跟我最开始的思路基本一致:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#75715e">// 存储有向图
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> edges;
+    <span style="color:#75715e">// 存储每个节点的入度
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> indeg;
+    <span style="color:#75715e">// 存储答案
+</span><span style="color:#75715e"></span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> result;
+
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> findOrder(<span style="color:#66d9ef">int</span> numCourses, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> prerequisites) {
+        edges.resize(numCourses);
+        indeg.resize(numCourses);
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> info: prerequisites) {
+            edges[info[<span style="color:#ae81ff">1</span>]].push_back(info[<span style="color:#ae81ff">0</span>]);
+            <span style="color:#f92672">++</span>indeg[info[<span style="color:#ae81ff">0</span>]];
+        }
+
+        queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q;
+        <span style="color:#75715e">// 将所有入度为 0 的节点放入队列中
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> numCourses; <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">if</span> (indeg[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                q.push(i);
+            }
+        }
+
+        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty()) {
+            <span style="color:#75715e">// 从队首取出一个节点
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">int</span> u <span style="color:#f92672">=</span> q.front();
+            q.pop();
+            <span style="color:#75715e">// 放入答案中
+</span><span style="color:#75715e"></span>            result.push_back(u);
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> v: edges[u]) {
+                <span style="color:#f92672">--</span>indeg[v];
+                <span style="color:#75715e">// 如果相邻节点 v 的入度为 0，就可以选 v 对应的课程了
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (indeg[v] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                    q.push(v);
+                }
+            }
+        }
+
+        <span style="color:#66d9ef">if</span> (result.size() <span style="color:#f92672">!=</span> numCourses) {
+            <span style="color:#66d9ef">return</span> {};
+        }
+        <span style="color:#66d9ef">return</span> result;
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>

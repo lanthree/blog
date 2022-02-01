@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>架构设计 on Engineers Cool</title>
+    <link>https://engineers.cool/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</link>
+    <description>Recent content in 架构设计 on Engineers Cool</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Feb 2022 22:15:17 +0800</lastBuildDate><atom:link href="https://engineers.cool/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[WIP] Rocketmq</title>
+      <link>https://engineers.cool/posts/architecture/mq/rocketmq/</link>
+      <pubDate>Wed, 02 Feb 2022 22:15:17 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/architecture/mq/rocketmq/</guid>
+      <description>RocketMQ 架构 Doc
+单机存储 Failover </description>
+    </item>
+    
+    <item>
+      <title>[WIP] MQ</title>
+      <link>https://engineers.cool/posts/architecture/mq/mq_comm/</link>
+      <pubDate>Wed, 02 Feb 2022 22:15:10 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/architecture/mq/mq_comm/</guid>
+      <description>Why MQ？  异步处理 解耦服务 削峰填谷 顺序消息  术语          Producer    Consumer    Topic    MessageQueue/Partition    Broker    Consumer Group    Rebalance    Message ordering     mq选型    MQ 场景 设计目标 CAP 硬件     kafka       NSQ/RocketMQ        RocketMQ vs.</description>
+    </item>
+    
+    <item>
+      <title>[WIP] Kafka</title>
+      <link>https://engineers.cool/posts/architecture/mq/kafka/</link>
+      <pubDate>Wed, 02 Feb 2022 22:15:02 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/architecture/mq/kafka/</guid>
+      <description>设计理念  低延迟：时间复杂度O(1) 高吞吐 水平扩展 顺序性：保证每个partition内的消息顺序传输 多场景：支持离线数据和实时数据  架构 Broker（kafka svr）依赖Zookeeper做：
+ 元数据管理 领导选举  消费是PULL模型：
+   消费模型 优点 缺点     PUSH 延迟低 容易怼挂消费者   PULL 削峰效果好：消费者根据处理能力拉数据； 可以批量PULL = 性能更好 延迟相对高    数据
+ Record  key - value timestamp   Topic  逻辑概念 发布-订阅均基于Topic   Partition  一个Topic包含一个或多个Partion  均匀分布在多个Broker - 以达到高并行处理能力   每个Partition物理上对应一个文件夹（每一段对应一个Segment，及一个文件）    Producer</description>
+    </item>
+    
+    <item>
+      <title>Redis中的数据结构</title>
+      <link>https://engineers.cool/posts/architecture/redis/ds/</link>
+      <pubDate>Wed, 02 Feb 2022 22:14:52 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/architecture/redis/ds/</guid>
+      <description>键值如何组织 为了实现从键到值的快速访问O(1)，Redis使用hash表来组织键值映射。
+全局hash表 hash表中每个桶中的元素（entry）保存了*key和*value，分别指向实际的键和值。这个hash表在内存中，维护了所有的键值对。当hash冲突时，Redis使用拉链法解决冲突：
+桶中链表上的元素，在查找时需要O(n)的遍历，当链表过长时，会直接导致元素查找时间过长，效率降低。此时，Redis会对hash表做rehash操作：增加现有的hash桶数量，让逐渐增多的entry元素能在更多的桶之间分散保存，减少单个桶中的元素数量。
+渐进式rehash 为了使rehash操作更高效，Redis使用两个全局hash表，hash表1和hash表2。最开始，Redis默认使用hash表1，此时hash表2没有被分配空间。rehash时，会给hash表2分配更大的空间，然后将hash表1中的元素rehash到hash表2，最后切换为hash表2并释放hash表1的空间。
+当下一次需要rehash时，会重复上面步骤（只是会从hash表2 rehahs到hash表1）。
+因为rehash过程可能涉及大量的数据拷贝，一次性完成的话，会造成Redis阻塞，所以Redis采用了渐进式rehash：每处理一个请求时，从hash表1中第一个索引开始，将第一个索引下的所有entry rehash到hash表2，下一次请求时，处理下一个索引。
+这里hash表1处理请求时，顺带从头开始rehash内容，而不是rehash当前处理的位置。有个全局变量记录rehash的进度。rehash过程，entry从原表移动到新表，而且rehash时，PUT操作只会在新表生效。
+?&amp;gt; 这里需要从代码确认下 TODO
+值的数据结构 简单动态字符串 先看它的结构：
+struct __attribute__ ((__packed__)) sdshdr32 { uint32_t len; /* 已使用的长度 */ uint32_t alloc; /* buf总可用（包括已使用）长度；不包括sdshdr结构体的大小，以及buf结尾&amp;#39;\0&amp;#39;占用的1字节 */ unsigned char flags; /* 前3bits表示类型, 后5bits未使用 */ char buf[]; }; 为了更高效的（减少浪费）使用内存，sdshdr有不同的类型（用flag标识）：sdshdr8、sdshdr16、sdshdr32、sdshdr64（在生成新字符串时，可以动态的根据字符串长度，生成不同类型的结构）。不同的类型，其len、alloc的数据类型不同，例如sdshdr16对应uint16_t。节省hdr结构空间的同时，约束了buf的最大长度。另外，sds提供的API中，buf结构是二进制安全的，不会因为数组中有&#39;\0&amp;rsquo;而被截断（使用len判断长度）。但是如果用于打印，那就不保证不被截断了。
+在代码中，上面结构只是sds的头的定义，sbs本身被定义为typedef char *sds;，相当于在代码中，sdshdr结构中的buf作为sds传递，sds的API为了适配（或者说 是sds为了适配API？），会通过数组下标-1取到flags，再操作：
+static inline size_t sdslen(const sds s) { unsigned char flags = s[-1]; switch(flags&amp;amp;SDS_TYPE_MASK) { case SDS_TYPE_5: return SDS_TYPE_5_LEN(flags); case SDS_TYPE_8: return SDS_HDR(8,s)-&amp;gt;len; case SDS_TYPE_16: return SDS_HDR(16,s)-&amp;gt;len; case SDS_TYPE_32: return SDS_HDR(32,s)-&amp;gt;len; case SDS_TYPE_64: return SDS_HDR(64,s)-&amp;gt;len; } return 0; } 双向链表 压缩列表 在列表、散列和有序集合的长度较短或者体积较小的时候，Redis可以选择使用一种名为压缩列表（ziplist）的紧凑存储方式来存储这些结构。压缩列表一块连续的内存空间（可以减少内存碎片），所有元素紧挨在一起，头部有三个字段zlbytes、zltail和zllen，尾部有一个zlend。</description>
+    </item>
+    
+  </channel>
+</rss>

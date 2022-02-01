@@ -1,0 +1,13 @@
+name: Deploy
+on: [push]
+jobs:
+  install_engineers_cool_page:
+    runs-on: self-hosted
+    steps:
+      - run: echo "该任务由 ${{ github.event_name }} 事件触发"
+      - run: echo "分支名： ${{ github.ref }} 仓库： ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "仓库： ${{ github.repository }} 已经在执行器内clone完成"
+      - run: export WORKSPACE=${{ github.workspace }} ; sh install.sh
+      - run: echo "更新完成！"

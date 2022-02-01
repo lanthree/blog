@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        [WIP] golang
+    </h1>    
+    <h2 id="流程语句">流程语句</h2>
+<h3 id="for">for</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Like a C for
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">init</span>; <span style="color:#a6e22e">condition</span>; <span style="color:#a6e22e">post</span> { }
+
+<span style="color:#75715e">// Like a C while
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">condition</span> { }
+
+<span style="color:#75715e">// Like a C for(;;)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> { }
+</code></pre></div><p>遍历容器</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">oldMap</span> {
+    <span style="color:#a6e22e">newMap</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#a6e22e">value</span>
+}
+
+<span style="color:#75715e">// 甚至可以遍历字符串
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">pos</span>, <span style="color:#a6e22e">char</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#e6db74">&#34;日本\x80語&#34;</span> { <span style="color:#75715e">// \x80 is an illegal UTF-8 encoding
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;character %#U starts at byte position %d\n&#34;</span>, <span style="color:#a6e22e">char</span>, <span style="color:#a6e22e">pos</span>)
+}
+<span style="color:#75715e">// print
+</span><span style="color:#75715e">// character U+65E5 &#39;日&#39; starts at byte position 0
+</span><span style="color:#75715e">// character U+672C &#39;本&#39; starts at byte position 3
+</span><span style="color:#75715e">// character U+FFFD &#39;�&#39; starts at byte position 6
+</span><span style="color:#75715e">// character U+8A9E &#39;語&#39; starts at byte position 7
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 只要key
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">key</span>.<span style="color:#a6e22e">expired</span>() {
+        delete(<span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">key</span>)
+    }
+}
+
+<span style="color:#75715e">// 只要value
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">array</span> {
+    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">value</span>
+}
+</code></pre></div><h3 id="switch">switch</h3>
+<p>没有switch value等同于switch true</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">unhex</span>(<span style="color:#a6e22e">c</span> <span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">byte</span> {
+    <span style="color:#66d9ef">switch</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;9&#39;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;f&#39;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;F&#39;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+}
+</code></pre></div><p>switch只会命中第一个case并执行它的代码段，不会因为没有break而fall through，但是你可以写case列表clumsy</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">shouldEscape</span>(<span style="color:#a6e22e">c</span> <span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">c</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;?&#39;</span>, <span style="color:#e6db74">&#39;&amp;&#39;</span>, <span style="color:#e6db74">&#39;=&#39;</span>, <span style="color:#e6db74">&#39;#&#39;</span>, <span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#e6db74">&#39;%&#39;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+}
+</code></pre></div><h2 id="defer">Defer</h2>
+<p>defer的参数在defer语句出决定</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d &#34;</span>, <span style="color:#a6e22e">i</span>)
+}
+<span style="color:#75715e">//4 3 2 1 0
+</span></code></pre></div><h2 id="数据">数据</h2>
+<h3 id="new">new</h3>
+<p><code>new T</code>为类型T分配一块初始化为0的空间，并返回<code>*T</code>类型的地址。</p>
+<h3 id="make">make</h3>
+<p>用于创建slice、map、和channel，并返回初始化后的对象本身（而非地址）</p>
+<h2 id="常用类型">常用类型</h2>
+<h3 id="数组">数组</h3>
+<ul>
+<li>数组是值，把一个数组赋值给另一个数组，回copy所有元素
+<ul>
+<li>特别的，如果传数组给函数，函数拿到的是他的一个copy</li>
+</ul>
+</li>
+<li>数组的大小是类型的一部分：<code>[10]int</code>和<code>[20]int</code>是不同的类型</li>
+</ul>
+<h3 id="slice">slice</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">array</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>
+    <span style="color:#a6e22e">len</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#a6e22e">cap</span> <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// slice
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> [] <span style="color:#66d9ef">int</span>  <span style="color:#75715e">// 此时s为nil
+</span><span style="color:#75715e"></span>              <span style="color:#75715e">// 如果写成 s := []int{} 或者 s := make([]int) s不为nil
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">len</span>, <span style="color:#a6e22e">cap</span>)
+
+<span style="color:#75715e">// array
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> [<span style="color:#a6e22e">len</span>]<span style="color:#66d9ef">int</span> <span style="color:#75715e">// 长度是类型的一部分，即长度不一样不能作为相应的函数参数传入
+</span></code></pre></div><p>growslice：</p>
+<ul>
+<li>当cap小于1024，每次double</li>
+<li>当cap大于等于1024，每次*1.25</li>
+</ul>
+<p>特别注意：初次append时（cap=0），以append的个数为准。</p>
+<p>当slice作为参数传入函数：</p>
+<ul>
+<li>如果没有发生扩容，修改在原来的内存中</li>
+<li>如果发生了扩容，修改会在新的内存中</li>
+</ul>
+<h4 id="二维slice">二维slice</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Transform</span> [<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">float64</span>  <span style="color:#75715e">// A 3x3 array, really an array of arrays.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinesOfText</span> [][]<span style="color:#66d9ef">byte</span>     <span style="color:#75715e">// A slice of byte slices.
+</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Allocate the top-level slice.
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">picture</span> <span style="color:#f92672">:=</span> make([][]<span style="color:#66d9ef">uint8</span>, <span style="color:#a6e22e">YSize</span>) <span style="color:#75715e">// One row per unit of y.
+</span><span style="color:#75715e">// Loop over the rows, allocating the slice for each row.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">picture</span> {
+	<span style="color:#a6e22e">picture</span>[<span style="color:#a6e22e">i</span>] = make([]<span style="color:#66d9ef">uint8</span>, <span style="color:#a6e22e">XSize</span>)
+}
+</code></pre></div><h3 id="map">map</h3>
+<p>map持有底层数据结构的引用，所以在作为参数传递到函数后，函数内的修改会影响到函数外的原始map对象</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">modifykv</span>(<span style="color:#a6e22e">kv</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>) {
+    <span style="color:#a6e22e">kv</span>[<span style="color:#e6db74">&#34;k1&#34;</span>] = <span style="color:#e6db74">&#34;modify_v1&#34;</span>
+}
+
+<span style="color:#a6e22e">kv</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{
+    <span style="color:#e6db74">&#34;k1&#34;</span>: <span style="color:#e6db74">&#34;v1&#34;</span>,
+    <span style="color:#e6db74">&#34;k2&#34;</span>: <span style="color:#e6db74">&#34;v2&#34;</span>,
+}
+<span style="color:#a6e22e">modifykv</span>(<span style="color:#a6e22e">kv</span>)
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">kv</span>)
+<span style="color:#75715e">// map[k1:modify_v1 k2:v2]
+</span></code></pre></div><p>map删除key时<a href="https://github.com/golang/go/issues/20135">不会自动缩容</a></p>
+<p><a href="https://qcrao.com/2019/05/22/dive-into-go-map/">深度解密Go语言之map</a></p>
+<h3 id="itoa">itoa</h3>
+<p><a href="https://segmentfault.com/a/1190000000656284">https://segmentfault.com/a/1190000000656284</a></p>
+<h3 id="channel">channel</h3>
+<ul>
+<li>有锁
+<ul>
+<li>高并发、高性能编程不适合使用</li>
+<li><a href="https://github.com/golang/go/issues/8899">https://github.com/golang/go/issues/8899</a></li>
+</ul>
+</li>
+<li>底层是ringbuffer</li>
+<li>会触发调度</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+}
+</code></pre></div><h3 id="interface">interface</h3>
+<h2 id="embedding">Embedding</h2>
+<p><a href="https://qcrao.com/2019/07/22/dive-into-go-channel/">深度解密Go语言之channel</a></p>
+<h2 id="并发安全问题解决方案">并发安全问题&amp;&amp;解决方案</h2>
+<p>DataRace</p>
+<ul>
+<li>原因：多个gorontine同时接触一个变量，行为不可预知</li>
+<li>认定条件：两个及以上goroutine同时接触一个变量，其中至少一个gorontine为写</li>
+<li>检测方案：go run/test -race</li>
+<li>结局方案：atomic，sync.Mutex/sync.Mutex等，限制访问数据</li>
+</ul>
+<h2 id="syncmutex">sync.Mutex</h2>
+<ul>
+<li>减少持有时间</li>
+<li>优化锁的粒度
+<ul>
+<li>并发获取随机数（rand.Rand中有锁），通过拆分rand.Rand缩小锁粒度</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SafeRander</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">pos</span>     <span style="color:#66d9ef">uint32</span>
+    <span style="color:#a6e22e">randers</span> [<span style="color:#ae81ff">128</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Rand</span>
+    <span style="color:#a6e22e">locks</span>   [<span style="color:#ae81ff">128</span>]<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Mutex</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">sr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SafeRander</span>) <span style="color:#a6e22e">Init</span>() {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">128</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">seed</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>()
+        <span style="color:#a6e22e">sr</span>.<span style="color:#a6e22e">randers</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">NewSource</span>(<span style="color:#a6e22e">seed</span>))
+    }
+
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">sr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SafeRander</span>) <span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+    <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">AddUint32</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sr</span>.<span style="color:#a6e22e">pos</span>, <span style="color:#ae81ff">1</span>)
+    <span style="color:#a6e22e">x</span> <span style="color:#f92672">%=</span> <span style="color:#ae81ff">128</span>
+    <span style="color:#a6e22e">sr</span>.<span style="color:#a6e22e">locks</span>[<span style="color:#a6e22e">x</span>].<span style="color:#a6e22e">Lock</span>()
+    <span style="color:#a6e22e">n</span> = <span style="color:#a6e22e">sr</span>.<span style="color:#a6e22e">randers</span>[<span style="color:#a6e22e">x</span>].<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">n</span>)
+    <span style="color:#a6e22e">sr</span>.<span style="color:#a6e22e">locks</span>[<span style="color:#a6e22e">x</span>].<span style="color:#a6e22e">Unlock</span>()
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+}
+</code></pre></div></li>
+<li>读写分离
+<ul>
+<li>RWMutex</li>
+<li>sync.Map</li>
+</ul>
+</li>
+<li>使用原子操作 Lock Free
+<ul>
+<li>sync.atomic</li>
+</ul>
+</li>
+</ul>
+<p>race detector</p>
+<p>自旋锁</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SpinLock</span> <span style="color:#66d9ef">int32</span>
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SpinLock</span>) <span style="color:#a6e22e">Lock</span>() {
+	<span style="color:#66d9ef">for</span> !<span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">CompareAndSwapInt32</span>((<span style="color:#f92672">*</span><span style="color:#66d9ef">int32</span>)(<span style="color:#a6e22e">s</span>), <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>) {
+	}
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">SpinLock</span>) <span style="color:#a6e22e">UnLock</span>() {
+	<span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">StoreInt32</span>((<span style="color:#f92672">*</span><span style="color:#66d9ef">int32</span>)(<span style="color:#a6e22e">s</span>), <span style="color:#ae81ff">0</span>)
+}
+</code></pre></div><p><a href="https://cs.opensource.google/go/go/+/refs/tags/go1.17.5:src/sync/mutex.go;drc=refs%2Ftags%2Fgo1.17.5;l=25">Mutex</a> 效率优先，兼顾公平</p>
+<ul>
+<li>正常模式
+<ul>
+<li>等待队列：先进先出</li>
+<li>新手优势：先抢再排（不用进入等待队列，减少调度开销，充分利用缓存）</li>
+<li>等到超1ms：饥饿模式</li>
+</ul>
+</li>
+<li>饥饿模式
+<ul>
+<li>严格排队，队收接盘
+<ul>
+<li>牺牲效率，保P99</li>
+</ul>
+</li>
+<li>适时回归（是最后一个 or 等待不到1ms） -&gt; 正常模式</li>
+</ul>
+</li>
+</ul>
+<h2 id="并发数据结构和算法">并发数据结构和算法</h2>
+<ul>
+<li>并发写，通过锁来约束只有一个能写</li>
+<li>并发读，使用atomic（要求写也要是atomic）</li>
+</ul>
+<p>TODO：有序链表、跳表</p>
+<h2 id="schedule">schedule</h2>
+<h3 id="调度循环">调度循环</h3>
+<p>GM模型 GPM模型</p>
+<p>如何建立调度循环</p>
+<p>TODO：逻辑图，模型图、源码阅读</p>
+<h3 id="协作与抢占">协作与抢占</h3>
+<ul>
+<li>（同步）协作式调度：依靠被调度方主动弃权
+<ul>
+<li>主动用户让权：通过runtime.Gosched调用主动让出执行机会</li>
+<li>主动调度弃权：执行栈分段时检查自身的枪战标记，决定是否继续执行</li>
+</ul>
+</li>
+<li>（异步）抢占是调度：依靠调度器强制将被调度方中断
+<ul>
+<li>当G执行时间过长时，sysmon会抢占G</li>
+<li>被动GC抢占，当需要进行垃圾回收时，强制停止所有G</li>
+</ul>
+</li>
+</ul>
+<h2 id="垃圾回收---garbage-collection">垃圾回收 - garbage collection</h2>
+<h2 id="内存管理">内存管理</h2>
+<h2 id="性能分析">性能分析</h2>
+<h2 id="高效代码">高效代码</h2>
+<h2 id="应用">应用</h2>
+
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        239. 滑动窗口最大值
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/sliding-window-maximumet">原题链接</a></p>
+<p>持续维护最值，最开始的想法是维护一个大顶堆，窗口内的都加进来；以后每次移动窗口时，就POP出不在窗口的数字，PUSH刚进窗口的数字。</p>
+<p>但是有一个问题，在堆POP时，不知道该POP的数字在堆的哪个位置。</p>
+<p>针对这个问题，考虑了两个思路：</p>
+<ol>
+<li>额外维护数据结构记录位置，比如用<code>map&lt;int,vector&lt;size_t&gt;&gt;</code>，记录每个数字的位置
+<ul>
+<li>但是这个数据结构会导致堆实现复杂化（挪动元素时需要修改这个结构）</li>
+</ul>
+</li>
+<li>记录需要POP的数字，但是先不着急POP，如果堆顶等于 需要POP的数字的最大值 才POP（堆顶），以及把这个数字从 需要POP的数字 中去除。
+<ul>
+<li>这个方法的话 需要POP的数字 也需要一个堆来维护。</li>
+</ul>
+</li>
+</ol>
+<p>以下使用第二个方法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BigHeap</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    BigHeap() <span style="color:#f92672">:</span> size_(<span style="color:#ae81ff">0</span>) {
+        memset(heap_, INT_MIN, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">100000</span>);
+    }
+
+    <span style="color:#f92672">~</span>BigHeap() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Push</span>(<span style="color:#66d9ef">int</span> val) {
+        heap_[size_<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> val;
+        
+        <span style="color:#75715e">// push last val up
+</span><span style="color:#75715e"></span>        size_t cur_pos <span style="color:#f92672">=</span> size_<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (cur_pos <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+            size_t father  <span style="color:#f92672">=</span> (cur_pos<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (heap_[father] <span style="color:#f92672">&lt;</span> heap_[cur_pos]) {
+                swap(heap_[father], heap_[cur_pos]);
+                cur_pos <span style="color:#f92672">=</span> father;
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">break</span>;
+            }
+        }
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Pop</span>() {
+        heap_[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> heap_[size_<span style="color:#f92672">--</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+
+        <span style="color:#75715e">// push first val down
+</span><span style="color:#75715e"></span>        size_t cur_pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (true) {
+            size_t child_l <span style="color:#f92672">=</span> cur_pos<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+            size_t child_r <span style="color:#f92672">=</span> cur_pos<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>;
+            <span style="color:#66d9ef">if</span> (child_l <span style="color:#f92672">&lt;</span> size_ <span style="color:#f92672">&amp;&amp;</span> child_r <span style="color:#f92672">&lt;</span> size_) {
+                <span style="color:#75715e">// 有左 有右
+</span><span style="color:#75715e"></span>                size_t tmp_swap_child <span style="color:#f92672">=</span> heap_[child_l] <span style="color:#f92672">&gt;</span> heap_[child_r] <span style="color:#f92672">?</span> child_l:child_r;
+                <span style="color:#66d9ef">if</span> (heap_[cur_pos] <span style="color:#f92672">&lt;</span> heap_[tmp_swap_child]) {
+                    swap(heap_[cur_pos], heap_[tmp_swap_child]);
+                    cur_pos <span style="color:#f92672">=</span> tmp_swap_child;
+                    <span style="color:#66d9ef">continue</span>;
+                }
+            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (child_l <span style="color:#f92672">&lt;</span> size_) {
+                <span style="color:#75715e">// 只有左
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (heap_[cur_pos] <span style="color:#f92672">&lt;</span> heap_[child_l]) {
+                    swap(heap_[cur_pos], heap_[child_l]);
+                    cur_pos <span style="color:#f92672">=</span> child_l;
+                    <span style="color:#66d9ef">continue</span>;
+                }
+            }
+            <span style="color:#66d9ef">break</span>;
+        }
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">Top</span>() { <span style="color:#66d9ef">return</span> heap_[<span style="color:#ae81ff">0</span>]; }
+    size_t <span style="color:#a6e22e">Size</span>() { <span style="color:#66d9ef">return</span> size_; }
+    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">Empty</span>() { <span style="color:#66d9ef">return</span> size_ <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>; }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> heap_[<span style="color:#ae81ff">100000</span>];
+    size_t size_;
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> maxSlidingWindow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        BigHeap h;
+        size_t idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (idx <span style="color:#f92672">&lt;</span> nums.size() <span style="color:#f92672">&amp;&amp;</span> idx <span style="color:#f92672">&lt;</span> k) {
+            h.Push(nums[idx<span style="color:#f92672">++</span>]);
+        }
+
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans;
+        ans.push_back(h.Top());
+
+        BigHeap pop_h;
+        <span style="color:#66d9ef">while</span> (idx <span style="color:#f92672">&lt;</span> nums.size()) {
+            size_t pop_idx <span style="color:#f92672">=</span> idx<span style="color:#f92672">-</span>k;
+            <span style="color:#75715e">// cout &lt;&lt; &#34;window out: &#34; &lt;&lt; nums[pop_idx] &lt;&lt; endl;
+</span><span style="color:#75715e"></span>            pop_h.Push(nums[pop_idx]);
+
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>pop_h.Empty() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>h.Empty()
+                <span style="color:#f92672">&amp;&amp;</span> pop_h.Top() <span style="color:#f92672">==</span> h.Top()) {
+                <span style="color:#75715e">// cout &lt;&lt; &#34;pop: &#34; &lt;&lt; pop_h.Top() &lt;&lt; &#34; &#34; &lt;&lt; h.Top() &lt;&lt; endl;
+</span><span style="color:#75715e"></span>                pop_h.Pop(); h.Pop();
+            }
+
+            h.Push(nums[idx]);
+            ans.push_back(h.Top());
+            idx<span style="color:#f92672">++</span>;
+        }
+
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>其实c++ STL中有堆实现：优先队列。（因为太久没用，忘掉了。。。）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> maxSlidingWindow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        priority_queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>,vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>,less<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> h;
+        size_t idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (idx <span style="color:#f92672">&lt;</span> nums.size() <span style="color:#f92672">&amp;&amp;</span> idx <span style="color:#f92672">&lt;</span> k) {
+            h.push(nums[idx<span style="color:#f92672">++</span>]);
+        }
+
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans;
+        ans.push_back(h.top());
+
+        priority_queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>,vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>,less<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> pop_h;
+        <span style="color:#66d9ef">while</span> (idx <span style="color:#f92672">&lt;</span> nums.size()) {
+            size_t pop_idx <span style="color:#f92672">=</span> idx<span style="color:#f92672">-</span>k;
+            pop_h.push(nums[pop_idx]);
+
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>pop_h.empty() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>h.empty()
+                <span style="color:#f92672">&amp;&amp;</span> pop_h.top() <span style="color:#f92672">==</span> h.top()) {
+                pop_h.pop(); h.pop();
+            }
+
+            h.push(nums[idx]);
+            ans.push_back(h.top());
+            idx<span style="color:#f92672">++</span>;
+        }
+
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>这个方法可以优化下，优先队列中不仅存值还存位置，如果堆顶的位置在窗口外，就POP：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> maxSlidingWindow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        priority_queue<span style="color:#f92672">&lt;</span>pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>,<span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> h;
+        size_t idx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (idx <span style="color:#f92672">&lt;</span> nums.size() <span style="color:#f92672">&amp;&amp;</span> idx <span style="color:#f92672">&lt;</span> k) {
+            h.emplace(nums[idx], idx<span style="color:#f92672">++</span>);
+        }
+
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans;
+        ans.push_back(h.top().first);
+
+        <span style="color:#66d9ef">while</span> (idx <span style="color:#f92672">&lt;</span> nums.size()) {
+            size_t pop_idx <span style="color:#f92672">=</span> idx<span style="color:#f92672">-</span>k;
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>h.empty() <span style="color:#f92672">&amp;&amp;</span> h.top().second <span style="color:#f92672">&lt;=</span> pop_idx)
+                h.pop();
+            
+            h.emplace(nums[idx], idx<span style="color:#f92672">++</span>);
+            ans.push_back(h.top().first);
+        }
+
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>题解中给出了一个双端队列（维护单调递减序列）的方法：</p>
+<ol>
+<li>头部POP：出窗口的POP掉</li>
+<li>尾部POP：新入窗口的值，大于尾部，则尾部POP</li>
+<li>尾部PUSH：新入窗口的值，小于尾部，则PUSH；大于尾部则 循环POP尾部</li>
+</ol>
+<p>这里其实是从结果考虑，排除不可能是最值的数字：同一个窗口内，在前且较小的数字，不会是最值。也就是对比新入窗口的值，前面的比他小的都可以丢弃。如上方法，我们就可以维护一个单调递减的序列，维护所有有肯跟成为最值的数字，每次取front即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> maxSlidingWindow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> nums.size();
+        deque<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> k; <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty() <span style="color:#f92672">&amp;&amp;</span> nums[i] <span style="color:#f92672">&gt;=</span> nums[q.back()]) {
+                q.pop_back();
+            }
+            q.push_back(i);
+        }
+
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans <span style="color:#f92672">=</span> {nums[q.front()]};
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> k; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty() <span style="color:#f92672">&amp;&amp;</span> nums[i] <span style="color:#f92672">&gt;=</span> nums[q.back()]) {
+                q.pop_back();
+            }
+            q.push_back(i);
+            <span style="color:#66d9ef">if</span> (q.front() <span style="color:#f92672">&lt;=</span> i <span style="color:#f92672">-</span> k) {
+                q.pop_front();
+            }
+            ans.push_back(nums[q.front()]);
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>最后附上另一个官方题解，分块 + 预处理：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> maxSlidingWindow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> nums.size();
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> prefixMax(n), suffixMax(n);
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">%</span> k <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                prefixMax[i] <span style="color:#f92672">=</span> nums[i];
+            }
+            <span style="color:#66d9ef">else</span> {
+                prefixMax[i] <span style="color:#f92672">=</span> max(prefixMax[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], nums[i]);
+            }
+        }
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#f92672">--</span>i) {
+            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> (i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> k <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+                suffixMax[i] <span style="color:#f92672">=</span> nums[i];
+            }
+            <span style="color:#66d9ef">else</span> {
+                suffixMax[i] <span style="color:#f92672">=</span> max(suffixMax[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>], nums[i]);
+            }
+        }
+
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> n <span style="color:#f92672">-</span> k; <span style="color:#f92672">++</span>i) {
+            ans.push_back(max(suffixMax[i], prefixMax[i <span style="color:#f92672">+</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]));
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>

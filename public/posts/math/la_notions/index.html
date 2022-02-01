@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        线性代数-基本符号
+    </h1>    
+    <h2 id="向量空间">向量空间</h2>
+<p>向量空间$V$，由向量$v$组成，一同向量加法与标量乘法，满足一下8个属性（向量空间的公里）：</p>
+<ol>
+<li><strong>交换律</strong>：$v+w=w+v \textrm{ for all }v,w\in V$</li>
+<li><strong>结合律</strong>：$(u+v)+w=u+(v+w) \textrm{ for all }u,v,w\in V$</li>
+<li><strong>零向量</strong>：存在特殊向量（用$0$标识），满足$v+0=v\textrm{ for all } v\in V $</li>
+<li><strong>加法逆元</strong>：任意向量$v\in V$都存在一个向量$w\in V$，满足$v+w=0$。这个向量一般用$-v$标识</li>
+<li><strong>乘法单位</strong>：$1v=v\textrm{ for all }v\in V$</li>
+<li><strong>乘法结合律</strong>：$(\alpha\beta)v=\alpha(\beta v)\textrm{ for all }v\in V\textrm{ and all scalars }\alpha,\beta$</li>
+<li><strong>分配律</strong>：$\alpha (u+v)=\alpha u+\alpha v\textrm{ for all }u,v\in V\textrm{ and all scalars }\alpha   $</li>
+<li><strong>分配律</strong>：$(\alpha +\beta )v=\alpha v+\beta v\textrm{ for all }v\in V\textrm{ and all scalars }\alpha,\beta $</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:left">释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$ \mathbb{R}^{n} $</td>
+<td style="text-align:left">$n$维实数向量空间：由所有的 $ \mathrm{v} = \left( \begin{array}{c} v_{1} \ v_{2} \ \vdots \ v_{n} \end{array} \right) $组成，其中所有$ v $都是实数</td>
+</tr>
+<tr>
+<td style="text-align:center">$ \mathbb{C}^{n} $</td>
+<td style="text-align:left">$n$维复数向量空间：由所有的 $ \mathrm{v} = \left( \begin{array}{c} v_{1} \ v_{2} \ \vdots \ v_{n} \end{array} \right) $组成，其中所有$ v $都是复数</td>
+</tr>
+<tr>
+<td style="text-align:center">$ \mathbb{F}^{n} $</td>
+<td style="text-align:left">$n$维向量空间，即可以是$\mathbb{R}^{n}$，也可以是$\mathbb{C}^{n}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$ \mathit{M}<em>{m \times n} $ 或者 $ \mathit{M}</em>{m,n}$</td>
+<td style="text-align:left">加法、乘法运算标量</td>
+</tr>
+<tr>
+<td style="text-align:center">$ \mathit{M}_{m,n}^{\mathbb{R}} $</td>
+<td style="text-align:left">分元都是实数的$ \mathit{M}_{m,n} $</td>
+</tr>
+<tr>
+<td style="text-align:center">$ \mathit{M}_{m,n}^{\mathbb{C}} $</td>
+<td style="text-align:left">分元都是复数的$ \mathit{M}_{m,n} $</td>
+</tr>
+<tr>
+<td style="text-align:center">$ \mathbb{P}^{n}$</td>
+<td style="text-align:left">n次多项式空间：由素有的 $p(t) = a_{0} + a_{1}t + a_{2}t^{2} + \dots + a_{n}t^n$组成。<br/>其中，$t$是自变量，任意$a_{k}\textrm{ for all } 0\leqslant k \leqslant n$都可以是$0$</td>
+</tr>
+<tr>
+<td style="text-align:center">$A=\left(a_{j, k}\right)_{j=1, k=1}^{m,\ \ \ n} $</td>
+<td style="text-align:left">$m$行$n$列的矩阵$\left(\begin{array}{cccc} a_{1,1} &amp; a_{1,2} &amp; \ldots &amp; a_{1, n} \ a_{2,1} &amp; a_{2,2} &amp; \ldots &amp; a_{2, n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{m, 1} &amp; a_{m, 2} &amp; \ldots &amp; a_{m, n}\end{array}\right)$</td>
+</tr>
+<tr>
+<td style="text-align:center">$A_{j,k}$或者$(A)_{j,k}$</td>
+<td style="text-align:left">矩阵$A$的$j$行$k$列的项，$A$也可小写</td>
+</tr>
+<tr>
+<td style="text-align:center">$A^{T}$</td>
+<td style="text-align:left">矩阵$A$的转置，即$(A^{T})j,k = (A)_{k,j}$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="线性组合基">线性组合，基</h2>
+<blockquote>
+<p>定义 2.1：如果任意向量$v\in V$，都可以被 一组向量$v_1,v_2,\dots\in V$ 唯一线性组合表示，则称这组向量为向量空间$V$的基（bases）。
+$$
+v=\alpha_1v_1+\alpha_2v_2+\dots+\alpha_nv_n=\sum_{k=1}^{p}\alpha_kv_k
+$$</p>
+</blockquote>
+<p>这组系数$\alpha_1,\alpha_2,\dots,\alpha_n$被称为在基下的<strong>坐标</strong>。</p>
+<p>$\textbf{Example}$：如下一组向量：
+$$
+\left{
+\begin{array}{l}
+e_1=(1,0,0,\dots,0)^T \
+e_2=(1,0,0,\dots,0)^T \
+\dots\dots\
+e_n=(1,0,0,\dots,0)^T
+\end{array}
+\right.
+$$
+是$ \mathbb{F}^{n} $的基，即任意向量$v\in\mathbb{F}^n$都可以被表示为如下线性组合：
+$$
+v=x_1e_1+x_2e_2+\dots+x_ne_n = \sum_{k=1}^{n}x_ke_k
+$$
+且唯一。这组向量被称为$\mathbb{F}^n$的<strong>标准基</strong>。</p>
+<p>$\textbf{Example}$：基于如下一组向量：
+$$
+e_0:=1,\ e_1:=t,\ e_2:=t^2,\ \dots,\ e_n:=t^n \textrm{ for all }e_k \in \mathbb{P}
+$$
+任意多项式$p,p(t)=\alpha_0+\alpha_1t+\alpha_2t^2+\dots+\alpha_nt^n$，有唯一表示:
+$$
+p=\alpha_0e_0+\alpha_1e_1+\alpha_2e_2+\dots+\alpha_ne_n
+$$
+这组向量被称为$\mathbb{P}^n$的标准基。</p>
+<p>基的定义是空间内任意向量有且唯一的在基向量下的线性组合。该定义有两层含义：存在性，唯一性。如果只考虑存在性，则有如下定义：</p>
+<blockquote>
+<p>定义 2.2：如果任意向量$v\in V$，都可以被 一组向量$v_1,v_2,\dots\in V$ 线性组合表示，则称这组向量为的generating system（spanning system, cpmplete system）
+$$
+v=a_1v_1+a_2v_2+\dots+a_nv_n=\sum_{k=1}^{p}a_kv_k
+$$</p>
+</blockquote>
+<p>跟基的定义的唯一差别是，不强调线性组合唯一性。易知，基（例如：$v_1,v_2,\dots,v_n$）增加几个向量（例如：$v_{n+1},\dots,v_p$）即可得到一个generating（complete） system。</p>
+<blockquote>
+<p>定义 2.3：线性组合$\alpha_1v_1+\alpha_2v_2+\dots+\alpha_pv_p\qquad\alpha_k=0 \forall k$ 称为 trivial（平凡的）</p>
+</blockquote>
+<blockquote>
+<p>定义 2.4：如果只有trivial线性组合（$ \sum_{k=1}^{p}\alpha_kv_k \textrm{ with }\alpha_k=0\forall k$）可以使得$v_1,v_2,\dots,v_p \in V$为0，则称$v_1,v_2,\dots,v_p \in V$线性无关</p>
+</blockquote>
+<p>换句话说，如果方程$x_1v_1+x_2v_2+\dots+x_pv_p=0$有且仅有trivial解（$x_1=x_2=\dots=x_p=0$），则$v_1,v_2,\dots,v_p$线性无关。</p>
+<p>如果一组向量不是线性无关，则被称为线性相关：</p>
+<blockquote>
+<p>定义 2.5：如果存在non-trivial（非平凡的）线性组合（$\sum_{k=1}^p\left|a_k\right|\ne0$）可以使$0=\sum_{k-1}^p\alpha_kv_k$，则称$v_1,v_2,\dots,v_p$线性相关</p>
+</blockquote>
+<blockquote>
+<p>命题 2.6：当且仅当，一组向量（$v_1,v_2,\dots,v_p\in V$）中$v_k$可以被其他向量的线性组合表示，则称这组向量线性相关
+$$
+v_k=\sum_{j=1 \atop j\ne k}^p\beta_kv_j
+$$</p>
+</blockquote>
+
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>

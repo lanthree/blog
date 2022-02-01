@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据结构与算法 on Engineers Cool</title>
+    <link>https://engineers.cool/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 数据结构与算法 on Engineers Cool</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Feb 2022 21:34:05 +0800</lastBuildDate><atom:link href="https://engineers.cool/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AVL树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/avl/</link>
+      <pubDate>Wed, 02 Feb 2022 21:34:05 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/avl/</guid>
+      <description>AVL（Adelson-Velskii and Landis）树是带有平衡条件的（balance condition）的二叉查找树：一颗AVL树是其每个节点的左子树和右子树的高度最多差1的二叉查找树。
+ 高度是指从该节点到叶子节点的最长简单路径边的条数。叶子结点高度为0，NIL结点高度-1。
+ 可以证明，数高为O(logN)。在假设 删除为懒惰删除 情况下，删除和查找都可以在简单地在O(logN)复杂度内执行。只有插入操作，因为可能会破坏平衡条件，需要做操作，我们称其为旋转（rotation）。在插入以后，只有那些从插入点到根结点的路径上的结点的平衡可能被改变，因此只有这些结点的可能需要平衡，我们沿着这条路径平衡该树。
+可以如下，简单定义AVL树：
+template &amp;lt;typename Comparable&amp;gt; class AvlTree { struct AvlNode { Comparable element; AvlNode* left; AvlNode* right; int height; AvlNode(const Comparable&amp;amp; that_ele, AvlNode* lt, AvlNode* rt, int h = 0) : element(that_ele), left(lt), right(rt), height(h) {} }; public: AvlTree() : root(nullptr) {} int Height() const { return root == nullptr ? -1 : _height(root); } private: int _height(AvlNode* t) const { return t == nullptr ?</description>
+    </item>
+    
+    <item>
+      <title>B&#43;树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/b&#43;tree/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:58 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/b&#43;tree/</guid>
+      <description>定义 基于B树的定义上，有以下修改：
+ 数据项存储在叶子上 有M个子树的中间节点包含有M个元素（B树中是M-1个元素），每个元素不保存数据，只用来索引，所有数据都保存在叶子节点 所有的中间节点元素都同时存在于子节点，在子节点元素中是最大（或最小）元素。（以下以最小为例） 所有的叶子结点中包含了全部元素的信息，及指向含这些元素记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接 平级结点间通过双向链表相连  一个可能的3阶B+树如下：
+单个数据项的查找过程类似于B树，而且磁盘读取次数更稳定（B树因内部结点有数据项，可能提前结束，也可能因为数据项过大，多次磁盘读取才能找其子结点）。
+另外，因为B+的平级结点间通过双向链表相连，所以范围查找具有更好的性能（B树需要多次递归），例如下图查找19到37所有值的过程：
+插入/删除 插入/删除过程与B树基本一致。（笑）
+参考  漫画：什么是B+树？ wikipedia B+树 再有人问你为什么MySQL用B+树做索引，就把这篇文章发给她  </description>
+    </item>
+    
+    <item>
+      <title>B树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/btree/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:56 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/btree/</guid>
+      <description>?&amp;gt; 只有基本思想，没有代码。基本摘抄自《数据结构与算法分析 C++描述》。另外，网上一般看到的B树定义中，非叶结点也是会存储数据的，其他基本一样
+!&amp;gt; 又看了算法导论，果然这里有问题，B树在中间节点也有数据，参考下面定义中1、2条的补充说明。
+假设磁盘上持久化维护着一颗查找树。如果它是普通的查找树，那么最坏情况下需要N次磁盘读取才能找到需要的值。为了减少磁盘访问次数（磁盘访问相对于CPU计算慢很多），AVL树可以把查找次数收敛到logN。为了仅一步减少查找次数，直观上，可以让结点有更多分支，自然就会有更少的高度。一颗完全二叉树的高度大约为$\log_2N$，一颗完全M叉树的高度大约是$\log_MN$。
+定义 在二叉查找树中，需要一个键来决定到底取用两个分支中哪一个；在M叉树中，则需要M-1个键。另外，必须制定平衡策略，以保障其不会退化成二叉树，甚至是链表。B树由此设计，原则上B树保证只有少数的磁盘访问（树的高度）。阶为M的B树是一颗具有下列结构特性的树：
+ 数据项存储在叶子上  看网上也有的定义是非叶子结点也可以存数据项，即没有这一条   非叶结点存储直到M-1个键，以指示搜索的方向；键i代表子树i+1中的最小的键  在网上看到的版本，键i还附带数据，所以键i分割其左右的子树，而不是代表子树i+1中的最小的键   树的根或者是一片树叶，或者其儿子树在2和M之间 除根外，所有非树叶结点的儿子树在$\lceil M/2 \rceil$和M之间 所有的树叶都在相同的深度上，并有$\lceil L/2 \rceil$和L之间个数数据项，稍后描述L的确定  下图是一个5阶B树的一个例子。注意，所有的非树叶的结点的儿子树都在3和5之间（从而有2到4个键）；根可能只有两个儿子。设定L是5，因此每片树叶有3到5个数据项。
+每个节点代表一个磁盘区块，我们可以据此选择M和L。例如，一个区块容纳8192字节，假设每个键32字节，M阶B树的结点有M-1个键，即32M-32字节，每个分支是4字节（指向其他内存区块），有M个分支，总共36M-32字节，使不超过8192字节的M最大值是228，因此M可以是228。假设每条记录是256字节，8192/256=32，那么可以选择L为32。那么假设满树的情况下，一层可以容纳32*228=7296个数据项，多一层则多228倍。另外，最坏情况下，树高近似是$\log_{M/2}{N}$
+插入 首先设想把57插入到图2的5阶B树中，沿树向下查找，把它作为第5个儿子添加到树叶中：
+这是简单情况，因为该树叶还没有装满。现在设想再把55插入树中。观察上图可以发现，55想要插入的树叶已经满了，现在由于其父结点的子结点树不到L，所以可以把该叶子结点分成两片树叶，每片3项：
+再设想把40插入图4中，此时必须把包含键35到39而又要包含40的树叶，分成两片。但是，这将使父结点有6个儿子，可是它最多只能有5个儿子。因此，要分裂这个父结点。结果在下图给出：
+正如这里的情形所示，当一个非树叶结点分裂时，它的父结点得到一个儿子。当父结点的儿子个数已经达到规定的限度，那么将沿树向上分裂结点，直到找到一个父结点它不需要再分裂，或者到达树根。如果需要分裂树根，那么需要建立一个新的根，这个根以分裂得到的两个树根作为它的两个儿子。这就是准许树根可以有两个儿子特权的原因。这也是B树增加高度的唯一方式。
+还有其他方式处理儿子过多的情况。一种方法是在相邻结点有空间时把一个儿子交给该结点领养。相对于直接分裂，这趋向于使得结点更满。
+删除 删除结点时，如果被删的项所在的树叶的数据项数已经是最小限度，那么可以通过在邻结点本身没有达到最小值时领养一个邻项来矫正这种状态。如果邻结点也已经是最小值，那么可以合并两个结点形成一个满页。可是，这会使得父结点失去一个儿子。如果失去儿子的结果又引起父结点的儿子数低于最小值，那么使用相同的策略继续进行。这个过程可以一直上行到根。如果根只剩一个儿子，那么删除根，并让这个儿子成为新根。这是B树降低高度的唯一的方式。
+参考  《数据结构与算法分析 C++描述》 wikipedia B树  </description>
+    </item>
+    
+    <item>
+      <title>红黑树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/rbtree/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:48 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/rbtree/</guid>
+      <description>定义 红黑树是一种具有下列着色性质的二叉查找树：
+ 每一个结点或者着红色，或者着黑色 根是黑色的 如果一个结点是红色的，那么它的子结点必须是黑色的 从一个几点到一个NULL指针的每一条路径都必须包含相同数目的黑色结点  一个典型的红黑树如下图所示：
+插入 首先，考虑插入过程，通常把新项作为树叶放到树种（通过二叉查找树找到合适的位置）。然后考虑着色以及平衡的事情。如果把该项涂成黑色，那么在不做其他调整情况下，会违反性质4。如果把该项涂成红色，在父结点是黑色时，插入操作完成，在父结点是红色时，为了不违反性质3，也需要做调整（着色改变 和 树的旋转）。以下以涂成红色为例讨论。
+?&amp;gt; 感觉涂成黑色也可以？只是当前看到的这个没有讨论？
+如果新项（着红色）的父结点是黑色，那么插入完成。如果父结点是红色，那么有以下几种情况（每种都有一个镜像对称）需要考虑。（另外以下讨论中，以NULL为黑色）
+父结点的兄弟结点是黑色（情况A）  以下讨论都，令X是新插入结点，P是父结点，S是该父结点的兄弟结点（若存在），G是祖父结点
+ 如果S结点是黑色（例如在图1中插入8），在这种情况下，只有X和P是红色，G是黑色（G如果不是黑色，那么在插入新结点前，就会有红G-&amp;gt;红P的违反性质3的情况）。X、P、G可以行政一个一字型链或者之字形链。下图指出，当P是G的左儿子时，应如何旋转。（还有镜像的P是右儿子的情况，自行想象）
+这两种情况下，子树的新根颜色保持不变，不会打破新跟与原子树的父结点的着色约束。另外，新根到A、B、C的叶子上的黑色结点个数保持不变：
+ 情况1：A为空，不讨论；旋转前，G到B经历1个黑色结点，G到C经历2个黑色结点，旋转后 新根到B、C经历的黑色结点个数一样。 情况2：B1、B2为空，不讨论；旋转前，G到A经历1个黑色结点，G到C经历2个黑色结点，旋转后 新根到A、C经历的黑色结点个数一样。  父结点的兄弟结点是红色（情况B） 如果S结点是红色（例如在图1中插入79），在这种情况下，X、P、S是红色，G是黑色。此时，从跟结点G到A、B、C只有1个黑结点，在旋转后，我们也希望新根到A、B、C的黑色结点树是1（这样才能保证，新根到A、B、C的叶子的黑色结点数一致）。又由于不能有连续的红色结点，所以S和新根需要是红色，而G和X是黑色：
+子树是平衡了，但是子树的父结点（R）可能是红色。这时，需要判断结点R的兄弟结点是黑色还是红色，然后重新按上面讨论的 情况A、情况B 处理，直到不再有两个相连的红色结点。
+删除 !&amp;gt; “删除”操作的内容，基本来自Ref3。
+ 要删除的结点，没有子结点，考虑两种情况：  该结点为红色，直接删除即可。 该结点为黑色，则需要进行平衡操作，下图展示了这种需要平衡的情况   要删除的结点，有一个子结点。此时，要删除的结点一定是黑色，其子结点一定是红色。那么可以让删除结点的父结点连接到该子结点，并着黑色。 有两个子结点时。与二叉搜索树一样，把 左子结点的最大值/右子结点的最小值 复制到要删除的结点上，把问题转换为删除被复制的结点，递归此过程，直到把问题转换为情况1 或者 情况2。   以上过程，总体上，是把删除结点的问题，归结为删除最下层子结点的问题：如果该最下层子结点是红色（情况1.1、情况2），那么可以安全的删除。如果该最下层子结点是黑色（情况1.2），那需要做平衡操作。
+ 平衡操作 约定结点名称如下：
+另外，记h(A-&amp;gt;B-&amp;gt;NIL)表示从A走到B再走到某一个NIL结点的黑色结点数量。
+接下来考虑如何平衡，首先需要平衡是因为删除了一个黑色结点D（图4），导致其父结点走这个儿子的路径的黑色结点树少了1。那么，为了平衡有两种操作：
+ 操作1：h(P-&amp;gt;N-&amp;gt;NIL)不变，h(P-&amp;gt;S-&amp;gt;NIL)减1。这种平衡操作会使得h(G-P-&amp;gt;NIL)减1，此时需要将P当成新的N，向上递归处理。 操作2：h(P-&amp;gt;N-&amp;gt;NIL)加1，h(P-&amp;gt;S-&amp;gt;NIL)不变。也就是回复原来的黑色结点数。  N为跟结点 无需平衡操作。
+S为黑色 先考虑，S的子结点全黑的情况：
+ P为黑：此时可以通过S着红色，来达到操作1，然后以P为新的需平衡结点，向上递归处理。 P为红：此时可以通过交换P、S的着色（P：红-&amp;gt;黑；S：黑-&amp;gt;红），来达到操作2，完成平衡。  再考虑，S的子结点不全黑：</description>
+    </item>
+    
+    <item>
+      <title>逆波兰表达式</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/reverse_polish_notation/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:41 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/reverse_polish_notation/</guid>
+      <description>/* This implementation does not implement composite functions, functions with variable number of arguments, and unary operators. */ while there are tokens to be read: read a token if the token is: - a number: put it into the output queue - a function: push it onto the operator stack - an operator o1: while ( there is an operator o2 other than the left parenthesis at the top of the operator stack, and (o2 has greater precedence than o1 or they have the same precedence and o1 is left-associative) ): pop o2 from the operator stack into the output queue push o1 onto the operator stack - a left parenthesis (i.</description>
+    </item>
+    
+    <item>
+      <title>跳表</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/skip_list/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:29 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/skip_list/</guid>
+      <description>简介 跳表（skip list）是一个有序链表的随机化的变体，有附加的、平行的链表。在上层的平行链表指数级的跳过多个元素。为了快速找到正确的部分，搜索从最高层开始，递进地进入底层。加入元素时，先随机选择层高，然后给该层以及所有下层的链表的正确顺序的位置加入该元素。
+   算法 平均 最差     Space $O(n)$ $O(n\log n)$   Search $n\log n)$ $O(n)$   Insert $n\log n)$ $O(n)$   Delete $n\log n)$ $O(n)$    实现 数据结构以及初始化 template &amp;lt;typename Comparable, typename Value&amp;gt; class SkipList { struct Node { Comparable key; Value val; Node* forward[MAXLEVEL]; }; public: SkipList() {} private: Node* hdr_; // 链表头  int list_level_; // 链表当前level }; 定义Node为跳表的一个结点（注意，这个结点包含跳表的多个层级的指针forward，最低0，最高MAXLEVEL-1）。下图左边为一个有两个key的跳表的内部结构示意图。第0个结点只用于维护表头，不存储数据；每个结点都有一个forward数组，维护该结点对应层级的下一个结点的地址：例如node1层级是0，那么只有forward[0]有效，并指向了node2；而node2的层级是2，那么forward[0~2]都有效，虽然都指向了nullptr：</description>
+    </item>
+    
+    <item>
+      <title>排序</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/sort/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:23 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/sort/</guid>
+      <description>冒泡排序 时间复杂度O(n^2)
+ 每次从尾到头（已排序列的尾部）迭代遍历，把相邻数字的更小（大）的元素放前面 重复1步，直到所有元素均排序完毕。  选择排序 时间复杂度O(n^2)
+ 首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置（与之交换位置即可）。 再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾（同1）。 重复第2步，直到所有元素均排序完毕。  插入排序 插入排序由N-1此插入组成，对于第i趟，把下标i的数字插入到下标0~i的合适位置。时间复杂度O(n^2)。
+template &amp;lt;typename Comparable&amp;gt; void insertionSort(std::vector&amp;lt;Comparable&amp;gt;&amp;amp; v) { int j; for (int p = 1; p &amp;lt; v.size(); p++) { Comparable tmp = v[p]; for (j = p; j &amp;gt; 0 &amp;amp;&amp;amp; tmp &amp;lt; v[j - 1]; j--) { v[j] = v[j - 1]; } v[j] = tmp; } } 可能的STL实现：
+template &amp;lt;typename Iterator, typename Comparator, typename Object&amp;gt; void _insertionSort(const Iterator&amp;amp; begin, const Iterator&amp;amp; end, Comparator lessThan, const Object&amp;amp; obj) { Iterator j; for (Iterator p = begin + 1; p !</description>
+    </item>
+    
+    <item>
+      <title>拓扑排序</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/tp_sort/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:19 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/tp_sort/</guid>
+      <description>拓扑排序（topological sort）是对有向无环图的顶点的一种排序。LeetCode 210.课程表II基本是一道模板题，可以参考这道题。
+伪代码：
+void Graph::toposort() { queue&amp;lt;Vertex&amp;gt; q; int counter = 0; for Vectex &amp;amp;v : vectexes_: if v.indegree == 0: q.push(v); while not q.empty(): Vertex&amp;amp; v = q.top(); q.pop(); v.topoNum = ++counter; for Vectex &amp;amp;w : v.linked: if (--w.indegree == 0): q.push(w); if counter != VECTEX_NUM: throw CycleFoundException(); } </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -11,14 +11,14 @@ enableEmoji = true
   logo = ""  # url or path to a logo to put in the header
   [params.footer]
     text = "By Lanthree"
-    url = "https://github.com/ojroques/hugo-researcher"
+    url = "https://github.com/lanthree"
     beian = "粤ICP备2021050312号"
   [params.style]  # appearance options (can be omitted)
     fontFamily = "Inconsolata"
     pageWidth = "750px"
-    avatarSize = "90px"
+    avatarSize = "120px"
     colorBlack = "#222222"
-    colorRed = "#dc3545"
+    colorMain = "#dc3545"
 #  [[params.socialIcons]]
 #    icon = "fab fa-twitter"
 #    title = "Twitter"
@@ -40,12 +40,15 @@ enableEmoji = true
     name = "Categories"
     url = "/categories"
     weight = 2
-#  [[menu.main]]
-#  [[menu.main]]
-#    name = "Resume"
-#    url = "/resume.pdf"
-#    # 'pre' and 'post' hooks are available
-#    weight = 2
+  [[menu.main]]
+    name = "LeetCode"
+    url = "/leetcode"
+    weight = 3
+  [[menu.main]]
+    name = "Resume"
+    url = "/resume"
+    # 'pre' and 'post' hooks are available
+    weight = 4
 #  [[menu.main]]
 #    name = "Contact"
 #    url = "/contact"

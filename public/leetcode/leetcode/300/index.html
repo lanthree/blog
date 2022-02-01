@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        300. 最长递增子序列
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">原题链接</a></p>
+<p>令<code>dp[i]</code>表示以数字<code>nums[i]</code>结尾的串的最长递增子序列，容易写出O(n^2)的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> lengthOfLIS(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">int</span> dp[<span style="color:#ae81ff">2500</span>];
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> nums.size(); i<span style="color:#f92672">++</span>) {
+            dp[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        }
+
+        <span style="color:#66d9ef">int</span> ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> nums.size(); j<span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> j; i<span style="color:#f92672">++</span>) {
+                <span style="color:#66d9ef">if</span> (nums[j] <span style="color:#f92672">&gt;</span> nums[i]) {
+                    dp[j] <span style="color:#f92672">=</span> max(dp[j], dp[i]<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+                    ans <span style="color:#f92672">=</span> max(ans, dp[j]);
+                }
+            }
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>官方给出了一个O(nlogn)的方法：贪心 + 二分查找。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> lengthOfLIS(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, n <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>)nums.size();
+        <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        }
+        <span style="color:#75715e">// d[i] 表示程度为i的字串 末尾数字的最小值
+</span><span style="color:#75715e"></span>        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> d(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+        d[len] <span style="color:#f92672">=</span> nums[<span style="color:#ae81ff">0</span>];
+        <span style="color:#75715e">// 遍历数字
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+            <span style="color:#75715e">// 如果当前数字 比 当前最长长度的末尾数字大
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (nums[i] <span style="color:#f92672">&gt;</span> d[len]) {
+                <span style="color:#75715e">// 则长度+1的末尾数字是该数字
+</span><span style="color:#75715e"></span>                d[<span style="color:#f92672">++</span>len] <span style="color:#f92672">=</span> nums[i];
+
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#75715e">// 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">int</span> pos <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+                <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> len;
+                <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;=</span> r) {
+                    <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (l <span style="color:#f92672">+</span> r) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+                    <span style="color:#66d9ef">if</span> (d[mid] <span style="color:#f92672">&lt;</span> nums[i]) {
+                        <span style="color:#75715e">// 找 pos &lt; nums[i] &lt; pos+1 的位置
+</span><span style="color:#75715e"></span>                        <span style="color:#75715e">// 然后用nums[i]更新d[pos+1]
+</span><span style="color:#75715e"></span>                        pos <span style="color:#f92672">=</span> mid;
+                        l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+                    } <span style="color:#66d9ef">else</span> {
+                        r <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+                    }
+                }
+                d[pos <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> nums[i];
+            }
+        }
+        <span style="color:#66d9ef">return</span> len;
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="js/code-copy.js"></script>
+</body>
+</html>
