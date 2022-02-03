@@ -1,7 +1,3 @@
----
-title: "Resume"
----
-
 ## About Me
 
 {{< figure class="avatar" src="/avatar.jpg" alt="avatar">}}
