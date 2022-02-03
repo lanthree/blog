@@ -9,6 +9,7 @@ enableEmoji = true
   description = "A simple monospaced resume theme for Hugo."
   favicon = "favicon.ico"  # path to a .ico to use as favicon
   logo = ""  # url or path to a logo to put in the header
+  math = true  # not required
   [params.footer]
     text = "By Lanthree"
     url = "https://github.com/lanthree"
@@ -27,6 +28,7 @@ enableEmoji = true
     icon = "fas fa-envelope"
     title = "E-mail"
     url = "mailto:lanthree@qq.com"
+    
 
 [permalinks]
   "/" = "/:filename"

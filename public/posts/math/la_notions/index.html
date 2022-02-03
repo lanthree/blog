@@ -22,7 +22,25 @@
         
     
 </head>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
     <body><div class="container mt-5">
     <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
         <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
@@ -90,18 +108,30 @@
 <tbody>
 <tr>
 <td style="text-align:center">$ \mathbb{R}^{n} $</td>
-<td style="text-align:left">$n$维实数向量空间：由所有的 $ \mathrm{v} = \left( \begin{array}{c} v_{1} \ v_{2} \ \vdots \ v_{n} \end{array} \right) $组成，其中所有$ v $都是实数</td>
+<td style="text-align:left">$n$维实数向量空间：由所有的 
+    $\mathrm{v} = \left( \begin{array}{c} v_{1} \\ v_{2} \\ \vdots \\ v_{n} \end{array} \right)$
+
+ 组成，其中所有$ v $都是实数</td>
 </tr>
 <tr>
 <td style="text-align:center">$ \mathbb{C}^{n} $</td>
-<td style="text-align:left">$n$维复数向量空间：由所有的 $ \mathrm{v} = \left( \begin{array}{c} v_{1} \ v_{2} \ \vdots \ v_{n} \end{array} \right) $组成，其中所有$ v $都是复数</td>
+<td style="text-align:left">$n$维复数向量空间：由所有的 
+    $\mathrm{v} = \left( \begin{array}{c} v_{1} \\ v_{2} \\ \vdots \\ v_{n} \end{array} \right)$
+
+组成，其中所有$ v $都是复数</td>
 </tr>
 <tr>
 <td style="text-align:center">$ \mathbb{F}^{n} $</td>
 <td style="text-align:left">$n$维向量空间，即可以是$\mathbb{R}^{n}$，也可以是$\mathbb{C}^{n}$</td>
 </tr>
 <tr>
-<td style="text-align:center">$ \mathit{M}<em>{m \times n} $ 或者 $ \mathit{M}</em>{m,n}$</td>
+<td style="text-align:center">
+    $\mathit{M}_{m \times n}$
+
+ 或者 
+    $\mathit{M}_{m,n}$
+
+</td>
 <td style="text-align:left">加法、乘法运算标量</td>
 </tr>
 <tr>
@@ -118,7 +148,10 @@
 </tr>
 <tr>
 <td style="text-align:center">$A=\left(a_{j, k}\right)_{j=1, k=1}^{m,\ \ \ n} $</td>
-<td style="text-align:left">$m$行$n$列的矩阵$\left(\begin{array}{cccc} a_{1,1} &amp; a_{1,2} &amp; \ldots &amp; a_{1, n} \ a_{2,1} &amp; a_{2,2} &amp; \ldots &amp; a_{2, n} \ \vdots &amp; \vdots &amp; &amp; \vdots \ a_{m, 1} &amp; a_{m, 2} &amp; \ldots &amp; a_{m, n}\end{array}\right)$</td>
+<td style="text-align:left">$m$行$n$列的矩阵 
+    $\left(\begin{array}{cccc} a_{1,1} &amp; a_{1,2} &amp; \ldots &amp; a_{1, n} \\ a_{2,1} &amp; a_{2,2} &amp; \ldots &amp; a_{2, n} \\ \vdots &amp; \vdots &amp; &amp; \vdots \\ a_{m, 1} &amp; a_{m, 2} &amp; \ldots &amp; a_{m, n}\end{array}\right)$
+
+</td>
 </tr>
 <tr>
 <td style="text-align:center">$A_{j,k}$或者$(A)_{j,k}$</td>
@@ -138,18 +171,13 @@ v=\alpha_1v_1+\alpha_2v_2+\dots+\alpha_nv_n=\sum_{k=1}^{p}\alpha_kv_k
 $$</p>
 </blockquote>
 <p>这组系数$\alpha_1,\alpha_2,\dots,\alpha_n$被称为在基下的<strong>坐标</strong>。</p>
-<p>$\textbf{Example}$：如下一组向量：
-$$
-\left{
-\begin{array}{l}
-e_1=(1,0,0,\dots,0)^T \
-e_2=(1,0,0,\dots,0)^T \
-\dots\dots\
-e_n=(1,0,0,\dots,0)^T
-\end{array}
-\right.
-$$
-是$ \mathbb{F}^{n} $的基，即任意向量$v\in\mathbb{F}^n$都可以被表示为如下线性组合：
+<p>$ \textbf{Example} $ ：如下一组向量：</p>
+
+    $$
+    \left\{ \begin{array}{l} e_1=(1,0,0,\dots,0)^T \\ e_2=(1,0,0,\dots,0)^T \\ \dots\dots\\ e_n=(1,0,0,\dots,0)^T \end{array} \right.$$
+
+
+<p>是$ \mathbb{F}^{n} $的基，即任意向量$v\in\mathbb{F}^n$都可以被表示为如下线性组合：
 $$
 v=x_1e_1+x_2e_2+\dots+x_ne_n = \sum_{k=1}^{n}x_ke_k
 $$

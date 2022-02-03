@@ -19,14 +19,14 @@ categories: [数学]
 
 |符号|释义|
 |:---:|:---|
-|$ \mathbb{R}^{n} $|$n$维实数向量空间：由所有的 $ \mathrm{v} = \left( \begin{array}{c} v_{1} \\ v_{2} \\ \vdots \\ v_{n} \end{array} \right) $组成，其中所有$ v $都是实数|
-|$ \mathbb{C}^{n} $|$n$维复数向量空间：由所有的 $ \mathrm{v} = \left( \begin{array}{c} v_{1} \\ v_{2} \\ \vdots \\ v_{n} \end{array} \right) $组成，其中所有$ v $都是复数|
+|$ \mathbb{R}^{n} $|$n$维实数向量空间：由所有的 {{<math>}} \mathrm{v} = \left( \begin{array}{c} v_{1} \\ v_{2} \\ \vdots \\ v_{n} \end{array} \right) {{</math>}} 组成，其中所有$ v $都是实数|
+|$ \mathbb{C}^{n} $|$n$维复数向量空间：由所有的 {{<math>}} \mathrm{v} = \left( \begin{array}{c} v_{1} \\ v_{2} \\ \vdots \\ v_{n} \end{array} \right) {{</math>}}组成，其中所有$ v $都是复数|
 |$ \mathbb{F}^{n} $|$n$维向量空间，即可以是$\mathbb{R}^{n}$，也可以是$\mathbb{C}^{n}$|
-|$ \mathit{M}_{m \times n} $ 或者 $ \mathit{M}_{m,n}$ | 加法、乘法运算标量 |
+|{{<math>}} \mathit{M}_{m \times n} {{</math>}} 或者 {{<math>}} \mathit{M}_{m,n}{{</math>}} | 加法、乘法运算标量 |
 |$ \mathit{M}_{m,n}^{\mathbb{R}} $|分元都是实数的$ \mathit{M}_{m,n} $|
 |$ \mathit{M}_{m,n}^{\mathbb{C}} $|分元都是复数的$ \mathit{M}_{m,n} $|
 |$ \mathbb{P}^{n}$|n次多项式空间：由素有的 $p(t) = a_{0} + a_{1}t + a_{2}t^{2} + \dots + a_{n}t^n$组成。<br/>其中，$t$是自变量，任意$a_{k}\textrm{ for all } 0\leqslant k \leqslant n$都可以是$0$|
-|$A=\left(a_{j, k}\right)_{j=1, k=1}^{m,\ \ \ n} $|$m$行$n$列的矩阵$\left(\begin{array}{cccc} a_{1,1} & a_{1,2} & \ldots & a_{1, n} \\ a_{2,1} & a_{2,2} & \ldots & a_{2, n} \\ \vdots & \vdots & & \vdots \\ a_{m, 1} & a_{m, 2} & \ldots & a_{m, n}\end{array}\right)$|
+|$A=\left(a_{j, k}\right)_{j=1, k=1}^{m,\ \ \ n} $|$m$行$n$列的矩阵 {{<math>}}\left(\begin{array}{cccc} a_{1,1} & a_{1,2} & \ldots & a_{1, n} \\ a_{2,1} & a_{2,2} & \ldots & a_{2, n} \\ \vdots & \vdots & & \vdots \\ a_{m, 1} & a_{m, 2} & \ldots & a_{m, n}\end{array}\right){{</math>}}|
 |$A_{j,k}$或者$(A)_{j,k}$|矩阵$A$的$j$行$k$列的项，$A$也可小写|
 |$A^{T}$|矩阵$A$的转置，即$(A^{T})j,k = (A)_{k,j}$|
 
@@ -39,8 +39,9 @@ categories: [数学]
 
 这组系数$\alpha_1,\alpha_2,\dots,\alpha_n$被称为在基下的**坐标**。
 
-$\textbf{Example}$：如下一组向量：
-$$
+$ \textbf{Example} $ ：如下一组向量：
+
+{{< math >}}
 \left\{
 \begin{array}{l}
 e_1=(1,0,0,\dots,0)^T \\
@@ -49,7 +50,8 @@ e_2=(1,0,0,\dots,0)^T \\
 e_n=(1,0,0,\dots,0)^T
 \end{array}
 \right.
-$$
+{{< /math >}}
+
 是$ \mathbb{F}^{n} $的基，即任意向量$v\in\mathbb{F}^n$都可以被表示为如下线性组合：
 $$
 v=x_1e_1+x_2e_2+\dots+x_ne_n = \sum_{k=1}^{n}x_ke_k
