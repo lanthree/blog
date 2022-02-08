@@ -112,7 +112,38 @@
     }
 };
 </code></pre></div><p>另外还可以BFS</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> zigzagLevelOrder(TreeNode<span style="color:#f92672">*</span> root) {
+        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> ans;
 
+        <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)
+            <span style="color:#66d9ef">return</span> ans;
+
+        <span style="color:#66d9ef">bool</span> need_reverse <span style="color:#f92672">=</span> false;
+        queue<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">*&gt;</span> q;
+        q.push(root);
+        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty()) {
+            vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> iter_level;
+
+            <span style="color:#66d9ef">int</span> level_size <span style="color:#f92672">=</span> q.size();
+            <span style="color:#66d9ef">while</span> (level_size<span style="color:#f92672">--</span>) {
+                <span style="color:#66d9ef">auto</span> node <span style="color:#f92672">=</span> q.front(); q.pop();
+                iter_level.push_back(node<span style="color:#f92672">-&gt;</span>val);
+
+                <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>left) q.push(node<span style="color:#f92672">-&gt;</span>left);
+                <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>right) q.push(node<span style="color:#f92672">-&gt;</span>right);
+            }
+
+            <span style="color:#66d9ef">if</span> (need_reverse)
+                reverse(iter_level.begin(), iter_level.end());
+            ans.emplace_back(iter_level);
+            need_reverse <span style="color:#f92672">=</span> <span style="color:#f92672">!</span>need_reverse;
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div>
 </div>
 
         </div><div id="footer" class="mb-5">

@@ -6,7 +6,16 @@
     <description>Recent content in Leetcodes on Engineers Cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Feb 2022 21:36:14 +0800</lastBuildDate><atom:link href="https://engineers.cool/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Feb 2022 21:47:33 +0800</lastBuildDate><atom:link href="https://engineers.cool/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>104</title>
+      <link>https://engineers.cool/leetcode/leetcode/104/</link>
+      <pubDate>Tue, 08 Feb 2022 21:47:33 +0800</pubDate>
+      
+      <guid>https://engineers.cool/leetcode/leetcode/104/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>103. 二叉树的锯齿形层序遍历</title>
       <link>https://engineers.cool/leetcode/leetcode/103/</link>
@@ -14,7 +23,8 @@
       
       <guid>https://engineers.cool/leetcode/leetcode/103/</guid>
       <description>原题链接
-class Solution { public: vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; zigzagLevelOrder(TreeNode* root) { vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; ans; dfs(root, 0, ans); for (int i = 1; i &amp;lt; ans.size(); i+=2) reverse(ans[i].begin(), ans[i].end()); return ans; } private: void dfs(TreeNode* node, int deep, vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; ans) { if (node == nullptr) return; if (ans.size() &amp;lt;= deep) ans.push_back({}); ans[deep].push_back(node-&amp;gt;val); dfs(node-&amp;gt;left, deep+1, ans); dfs(node-&amp;gt;right, deep+1, ans); } }; 另外还可以BFS</description>
+class Solution { public: vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; zigzagLevelOrder(TreeNode* root) { vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; ans; dfs(root, 0, ans); for (int i = 1; i &amp;lt; ans.size(); i+=2) reverse(ans[i].begin(), ans[i].end()); return ans; } private: void dfs(TreeNode* node, int deep, vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; ans) { if (node == nullptr) return; if (ans.size() &amp;lt;= deep) ans.push_back({}); ans[deep].push_back(node-&amp;gt;val); dfs(node-&amp;gt;left, deep+1, ans); dfs(node-&amp;gt;right, deep+1, ans); } }; 另外还可以BFS
+class Solution { public: vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; zigzagLevelOrder(TreeNode* root) { vector&amp;lt;vector&amp;lt;int&amp;gt;&amp;gt; ans; if (root == nullptr) return ans; bool need_reverse = false; queue&amp;lt;TreeNode*&amp;gt; q; q.</description>
     </item>
     
     <item>
