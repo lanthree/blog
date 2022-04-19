@@ -70,3 +70,9 @@ git config core.quotepath false
 ```sh
 brew install tig
 ```
+
+## git submodule
+
+```
+git submodule update --init --recursive
+```

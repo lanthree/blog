@@ -6,7 +6,27 @@
     <description>Recent content in Posts on Engineers Cool</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Feb 2022 22:15:17 +0800</lastBuildDate><atom:link href="https://engineers.cool/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Mar 2022 11:14:32 +0800</lastBuildDate><atom:link href="https://engineers.cool/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DDIA CHAPTER4: Encoding and Evolution</title>
+      <link>https://engineers.cool/posts/architecture/ddia/p1c4/</link>
+      <pubDate>Thu, 03 Mar 2022 11:14:32 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/architecture/ddia/p1c4/</guid>
+      <description>大多数情况下，应用特性的变更要求着其存储的数据变化：也许是一个需要记录的新字端或新记录，或者现存的数据以一种新的形式展示。这也总是伴随着代码变更。
+在大型应用系统中，代码变更不能瞬间完成：
+ 服务端：经常会进行滚动发布，先在某些服务节点发布新版本，观察一段时间，然后再继续发布，直到发布完所有节点。这使得新版本发布过程，不会阻断系统服务，也因此助长频繁地版本发布以及更好的可进化性（evolvability）。 客户端：可能会有些用户总是不升级。  这要求我们的系统需要代码可以（对数据）后向兼容（新代码 旧数据）、前向兼容（旧代码 新数据）。
+这一张主要聚焦数据编码的格式，包括JSON、XML、Protocol Buffers、Thtift、Avro。关注他们如何处理schema变化、如何支持存储新旧数据与代码的系统。然后讨论这些格式怎样用于数据存储和交互：REST、RPC、消息传递系统。
+数据编码的格式 程序通常要处理（至少）两种数据的表达形式：内存对象、自包含字节序列（用于传输和存储）。因此，我们需要不同数据表达形式的转换，而从内存对象到自包含字节序列的转换称为encoding（也称为serialization或者marshalling），反向称为decoding（parsing，deserialization、unmarshalling）。
+语言特定的格式 不建议使用
+JSON、XML、二进制变体 JSON、XML、CSV都是文本格式，因此都有一定的可读性。而它们都有一些问题：
+ 关于encoding数字的歧义：XML和CSV中，无法分辨到底是string还是数字；JSON没有这类歧义，但是在数字类型内，无法区分整数类型和浮点类型（及其精度）。 JSON和XML都支持Unicode编码字符传，但是都无法处理二进制串。面对这种问题，通常会先Base64编码（但是增加33%的数据大小）。 JSON/XML都支持optional的schema，但没有使用JSON/XMLschema的应用可能会需要hardcode一些编码/解码逻辑。 CSV完全没有schema，完全由应用定义每一行/列的含义。而且CSV是一个比较模糊的格式（内容中包含分号和换行符？），虽然正式定义了转译规则，但是并不是所有的解析器都正确实现了。  虽然有这些问题，但是JSON、XML、CSV也在多中情况下适用，特别是作为数据交换格式（例如，组织间的数据传递）。在这些情况下，只要可以在格式上达成一致，通常都不关心这个格式是否整洁或者高效。
+二进制编码 内部场景中，更受欢迎的是更紧凑的、能更快解析的格式，这在大流量系统中更为重要。
+直观感受下，以下JSON内容，MessagePack格式的字节流：
+{ &amp;#34;userName&amp;#34;: &amp;#34;Martin&amp;#34;, &amp;#34;favoriteNumber&amp;#34;: 1337, &amp;#34;interests&amp;#34;: [&amp;#34;daydreaming&amp;#34;, &amp;#34;hacking&amp;#34;] } Thrift和Protocol Buffers Apache Thrift 和 Protocol Buffers（Protobuf）是基于同一原则的二进制编码库。这两种编码库都要求被编码的任何数据具有schema。上述JSON在编码库的IDL如下：
+// thrift struct Person { 1: required string userName, 2: optional i64 favoriteNumber, 3: optional list&amp;lt;string&amp;gt; interests } // protobuf message Person { required string user_name = 1; optional int64 favorite_number = 2; repeated string interests = 3;}这两种库都附带了代码生成工具，可以生成不同语言下实现这个schema的编解码类。</description>
+    </item>
+    
     <item>
       <title>[WIP] Rocketmq</title>
       <link>https://engineers.cool/posts/architecture/mq/rocketmq/</link>
