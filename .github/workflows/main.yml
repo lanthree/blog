@@ -9,5 +9,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "仓库： ${{ github.repository }} 已经在执行器内clone完成"
+      - run: hugo -D
       - run: export WORKSPACE=${{ github.workspace }} ; sh install.sh
       - run: echo "更新完成！"
