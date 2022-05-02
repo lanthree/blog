@@ -6,11 +6,13 @@ jobs:
     steps:
       - run: echo "该任务由 ${{ github.event_name }} 事件触发"
       - run: echo "分支名： ${{ github.ref }} 仓库： ${{ github.repository }}."
+      
       - name: Check out repository code
         uses: actions/checkout@v2
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          
       - run: echo "仓库： ${{ github.repository }} 已经在执行器内clone完成"
       - run: hugo -D
       - run: export WORKSPACE=${{ github.workspace }} ; sh install.sh
