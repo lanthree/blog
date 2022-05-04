@@ -2,73 +2,14 @@
 
 {{< figure class="avatar" src="/avatar.jpg" alt="avatar">}}
 
-This is a Hugo based resume template. You can find the full source code on
-[GitHub](https://github.com/ojroques/hugo-researcher).
+2016年毕业后一直从事于交易/支付系统相关工作
 
-## Research Interest
+## 当前工作
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam finibus ipsum
-ac erat aliquam dapibus. Vestibulum vehicula placerat ex, a consectetur odio
-pharetra quis[^1]. Mauris id urna ante.
 
-Fusce pharetra diam ac nisi aliquet, velegestas ex iaculis. Pellentesque
-laoreet cursus tellus sed pellentesque. Praesent a rhoncus elit[^2]. Nunc
-ipsum nisl, consequat sit amet pretium quis, gravida id ipsum.
+## 工作经历
 
-## Publications
-
-In chronological order:
-1. F.Bar, J.Doe: Effects of having a placeholder of a name
-2. S.Holmes, J.Watson: Consequences of living with a sociopath in London
-
-## Typography
-
-This is a [link](http://google.com). Something *italics* and something **bold**.
-
-Here is a table:
-
-Year | Award | Category
+Year | CO | JD
 -----|-------|--------
-2014 | Emmy  | Won Outstanding Lead Actor in a miniseries or a movie
-2015 | BAFTA | Nominated for Best Leading Actor for Sherlock
-2014 | Satellite | Won Best Actor miniseries or television film
-
-Here is a horizontal rule:
-
----
-
-Here is a blockquote:
-
-> To a great mind, nothing is little
-
-Here is a `code` block:
-
-```python
-def is_elementary():
-  return True
-```
-
-```c++
-template <typename Comparable>
-class AvlTree {
- private:
-  void _singleRotateWithLeftChild(AvlNode*& N) {
-    AvlNode* L = N->left;
-
-    N->left = L->right;
-    L->right = N;
-    N->height = max(_height(N->left), _height(N->right)) + 1;
-    L->height = max(_height(L->left), N->height) + 1;
-
-    N = L;
-  }
-};
-```
-
-## References
-
-* Foo Bar: Head of Department, Placeholder Names, Lorem
-* John Doe: Associate Professor, Department of Computer Science, Ipsum
-
-[^1]: This is the first footnote.
-[^2]: This is the second footnote.
+2018-2021 | Tencent-WXG  | Won Outstanding Lead Actor in a miniseries or a movie
+2016-2018 | Tencent-TEG | Nominated for Best Leading Actor for Sherlock
