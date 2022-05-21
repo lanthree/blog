@@ -30,9 +30,9 @@ title = "学习笔记"
     3. [TODO] 现代操作系统
         + Unix环境编程-锁、段页、堆栈、进程线程
     4. [TODO] 数据库
-        + mysql原理（innodb、[事务隔离级别](/pages/stereotype/database/transaction)、自增主键的好处、[锁](/pages/stereotype/database/lock)）、索引查找顺序、回表  **重点准备**
+        + mysql原理（innodb、[事务隔离级别](/posts/stereotype/database/transaction)、自增主键的好处、[锁](/posts/stereotype/database/lock)）、索引查找顺序、回表  **重点准备**
         + LSM-tree Bitcask
-    5. [TODO] [C/C\+\+](/pages/stereotype/language/cpp) [《Effective C++》](/pages/stereotype/language/effective_cpp)
+    5. [TODO] [C/C\+\+](/posts/stereotype/language/cpp) [《Effective C++》](/posts/stereotype/language/effective_cpp)
     6. [TODO] 设计模式
     7. [TODO] FAQ
 + [TODO] 开源软件学习
