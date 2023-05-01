@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        C&#43;&#43;
+    </h1>    
+    <h2 id="程序编译过程">程序编译过程</h2>
+<p>编译过程分为四个过程：编译（编译预处理、编译、优化），汇编，链接。</p>
+<ul>
+<li>编译预处理：处理以<code>#</code>开头的指令</li>
+<li>编译、优化：将源码<code>.cpp</code>文件翻译成<code>.s</code>汇编代码</li>
+<li>汇编：将汇编代码<code>.s</code>翻译成机器指令<code>.o</code>文件</li>
+<li>链接：汇编程序生成的木匾文件，即<code>.o</code>文件，并不会立即执行，因为可能会出现：<code>.cpp</code>文件中的函数引用了另一个<code>.cpp</code>文件中定义的符号或者调用了某个库文件中的函数。那链接的目的。就是将这些文件对应的目标文件连接成一个整体，从而生成可执行的文件</li>
+</ul>
+<p>链接分为两种：</p>
+<ul>
+<li>静态链接：代码从其所在的静态链接库中拷贝到最终的可执行文件中，在该程序被执行时，这些代码会被装入到该进程的虚拟地址空间中</li>
+<li>动态链接：代码被放到动态链接库或共享对象的某个目标文件中，链接程序只是在最终的可执行程序中记录了共享对象的名字等一些信息。在程序执行时，动态链接库的全部内容会被映射到运行时相应进行的虚拟地址空间</li>
+</ul>
+<h2 id="内存管理">内存管理</h2>
+<p>C++内存分区：栈、堆、全局/静态存储区、常量存储区、代码区</p>
+<ul>
+<li>栈：存放函数的局部变量、函数参数、返回地址等，由编译器自动分配和释放</li>
+<li>堆：动态申请的内存空间，就是由<code>malloc</code>/<code>new</code>分配的内存块，有程序员控制它的分配和释放，如果程序执行结束没有释放，操作系统会自动回收</li>
+<li>全局/静态存储区（<code>.bss</code>段和<code>.data</code>段）：存放全局变量和静态变量，程序运行结束操作系统自动释放，在C语言中，为初始化的放在<code>.bss</code>段中，初始化的放在<code>.data</code>段中，C++中不再区分</li>
+<li>常量存储区（<code>.data</code>段）：存放的是常量，不允许修改，程序运行结束自动释放</li>
+<li>代码区（<code>.text</code>段）：存放代码，不允许修改，但可以执行。编译后的二进制文件存放在这里</li>
+</ul>
+<p>以上存储区在内容中的分布是如下形式（从低地址到高地址）：<code>.text</code>段 -&gt; <code>.data</code>段 -&gt; 堆 -&gt; <code>unused</code>-&gt; 栈 -&gt; <code>env</code></p>
+<h2 id="栈和堆的区别">栈和堆的区别</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>栈</th>
+<th>堆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>申请方式</td>
+<td>系统自动分配</td>
+<td>程序主动申请</td>
+</tr>
+<tr>
+<td>申请后系统响应</td>
+<td>分配栈空间，如果剩余空间大于申请空间则分配成功，否则分配失败栈溢出</td>
+<td>堆在内存中呈现的方式类似于链表（记录空闲地址空间的链表），在链表上寻找第一个大于申请空间的节点分配给程序，将该结点从链表中删除，大多数系统中该块空间的首地址存放的本次分配空间的大小，便于释放，将该快空间上的剩余空间再次连接在空闲链表上</td>
+</tr>
+<tr>
+<td>地址</td>
+<td>栈在内存中是连续的一块空间（向低地址扩展）</td>
+<td>堆在内存中的空间（向高地址扩展）是不连续的</td>
+</tr>
+<tr>
+<td>申请效率</td>
+<td>申请效率高</td>
+<td>申请效率低，使用起来方便但是容易产生碎片</td>
+</tr>
+<tr>
+<td>存放的内容</td>
+<td>局部变量，函数的参数</td>
+<td>由程序控制</td>
+</tr>
+</tbody>
+</table>
+<h2 id="虚表">虚表</h2>
+<ul>
+<li><a href="https://leehao.me/C-%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8%E5%89%96%E6%9E%90/">虚表</a></li>
+</ul>
+<h2 id="内存对齐">内存对齐</h2>
+<p>内存对齐：编译器将程序中的每个“数据单元”安排在字的整数倍的地址指向的内存之中</p>
+<p>内存对齐的原则：</p>
+<ol>
+<li>结构体变量的首地址能够被其 最宽基本类型成员大小 与 对齐基数中 的较小者所整除</li>
+<li>结构体每个成员相对于结构体首地址的偏移量（offset）都是该成员大小与对齐基数中的较小者的整数倍，如有需要编译器会在成员之间加上填充字节（internal padding）
+3 结构体的总大小为 结构体最宽基本类型成员大小 与 对齐基数中的较小者 的整数倍，如有需要编译器会在最末一个成员之后加上填充字节（trailing padding）</li>
+</ol>
+<blockquote>
+<p>32位操作系统，对齐基数4字节；64位操作系统，对齐基数8字节。</p>
+</blockquote>
+<p><a href="https://gcc.gnu.org/onlinedocs/gcc/Common-Variable-Attributes.html#Common-Variable-Attributes">packed</a>属性可以指定变量或结构体以1字节对齐（不浪费空间）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">__attribute__</span> ((__packed__)) sdshdr32 {
+    <span style="color:#66d9ef">uint32_t</span> len; <span style="color:#75715e">/* used */</span>
+    <span style="color:#66d9ef">uint32_t</span> alloc; <span style="color:#75715e">/* excluding the header and null terminator */</span>
+    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> flags; <span style="color:#75715e">/* 3 lsb of type, 5 unused bits */</span>
+    <span style="color:#66d9ef">char</span> buf[];
+};
+</code></pre></div><h2 id="智能指针有哪几种智能指针的实现原理">智能指针有哪几种，智能指针的实现原理</h2>
+<p>智能指针是为了解决动态内存分配时带来的内存泄漏以及多次释放同一块内存而提出的。C++11中封装在了<code>&lt;memory&gt;</code>头文件中</p>
+<p>C++11中智能指针包括以下三种：</p>
+<ul>
+<li>共享指针（shared_ptr）：资源可以被多个指针共享，使用计数机制表明资源被几个指针共享。通过<code>use_count()</code>查看资源所有者的个数，可以通过<code>unique_ptr</code>、<code>weak_ptr</code>来构造，调用<code>release()</code>释放资源的所有权，计数减1，当计数减为0时，会自动释放内存空间，从而避免了内存泄漏。</li>
+<li>独占指针（unique_ptr）：独享所有权的智能指针，资源只能被一个指针占有，该指针不能拷贝构造和赋值。但可以进行移动构造和移动赋值构造（调用<code>move()</code>函数）。</li>
+<li>弱指针（weak_ptr）：指向<code>shared_ptr</code>指向的对象，能够解决有<code>shared_ptr</code>带来的循环引用问题</li>
+</ul>
+<p><code>unique_ptr</code>移动：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> ptr1(<span style="color:#66d9ef">new</span> A());
+std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span> ptr2 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(ptr1);
+</code></pre></div><h2 id="设计一个不可被复制拷贝的基类">设计一个不可被复制拷贝的基类</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">noncopyable</span>
+{
+    noncopyable() {}
+    <span style="color:#f92672">~</span>noncopyable() {}
+
+    noncopyable( <span style="color:#66d9ef">const</span> noncopyable<span style="color:#f92672">&amp;</span> ) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+    noncopyable<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">=</span>( <span style="color:#66d9ef">const</span> noncopyable<span style="color:#f92672">&amp;</span> ) <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>;
+};
+</code></pre></div><h2 id="什么是面向对象面向对象的三大特性">什么是面向对象，面向对象的三大特性</h2>
+<p>面向对象：对象是指具体的某一个事物，这些事物的抽象就是类，类中包含数据（成员变量）和动作（成员方法）。</p>
+<p>面向对象的三大特性：</p>
+<ul>
+<li>封装：将 具体的实现过程和数据 封装成一个函数，只能通过接口进行访问，降低耦合性。</li>
+<li>继承：子类继承父类的特征和行为，子类有父类的非<code>private</code>方法或成员变量，子类可以对父类的方法进行重写，增强了类之间的耦合性，但是当父类中的成员变量、成员函数或者类本身被<code>final</code>关键字修饰时，修饰的类不能继承，修饰的成员不能重写或修改。</li>
+<li>多态：多态就是不同继承类的对象，对同一消息做出不同的响应，基类的指针指向或绑定到派生类的对象，使得基类指针呈现不同的表现方式</li>
+</ul>
+<h2 id="重载重写隐藏的区别">重载、重写、隐藏的区别</h2>
+<p>概念解释：</p>
+<ul>
+<li>重载：指同一可访问区内被声明几个具有不同参数列（参数的类型、个数、顺序）的同名函数，根据参数列表确定调用那个函数，重载不关心函数返回类型。</li>
+<li>隐藏：指派生类的函数屏蔽了与其同名的基类函数，只要函数同名，不管参数列表是否相同，基类函数都被隐藏。
+<ul>
+<li>可以加上基类类名调用基类被隐藏的函数<code>child.Father::func();</code></li>
+</ul>
+</li>
+<li>重写（override）：指派生类中存在重新定义的函数。函数名、参数列表、返回值类型都必须统计类中被重写的函数一致，只有函数体不同。派生类调用时会调用派生类的重写函数，不会调用被重写函数。重写的基类中被重写的函数必须有<code>virutal</code>修饰。</li>
+</ul>
+<h2 id="volatile的作用">volatile的作用</h2>
+<p>作用：当对象的值可能在程序的控制或检测之外被改变时，应该将对象声明为<code>volatile</code>，告知编译器不应对这样的对应进行优化</p>
+<p>对编译器的影响：</p>
+<p>使用该关键字后，编译器不会对相应的对象进行优化，即不会将变量从内存缓存到寄存器中，防止多个线程有可能使用内存中的变量，有可能使用寄存器中的变量，从而导致程序错误。</p>
+<p>volatile提醒编译器它后面所定义的变量随时都有可能改变，因此编译后的程序每次需要存储或读取这个变量的时候，都会直接从变量地址中读取数据。如果没有volatile关键字，则编译器可能优化读取和存储，可能暂时使用寄存器中的值，如果这个变量由别的程序更新了的话，将出现不一致的现象。</p>
+<p>我们可以使用volatile关键字试图阻止过度优化，volatile基本可以做到两件事情：</p>
+<ol>
+<li>阻止编译器为了提高速度将一个变量缓存到寄存器内而不写回；（缓存一致性协议、轻量级同步）</li>
+<li>阻止编译器调整操作volatile变量的指令排序。</li>
+</ol>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://gcc.gnu.org/">GCC, the GNU Compiler Collection</a></li>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html#Function-Attributes">Declaring Attributes of Functions</a></li>
+</ol>
+
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        149. 直线上最多的点数
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/max-points-on-a-line/">原题链接</a></p>
+<p>暴力的遍历起点、终点计算斜率：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> maxPoints(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> points) {
+        <span style="color:#66d9ef">if</span> (points.size() <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span>)
+            <span style="color:#66d9ef">return</span> points.size();
+
+        <span style="color:#66d9ef">int</span> ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> points.size(); <span style="color:#f92672">++</span>i) {
+            unordered_map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> cnt;
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> points.size(); <span style="color:#f92672">++</span>j) {
+                <span style="color:#66d9ef">auto</span> xl <span style="color:#f92672">=</span> _calc_xl(points[i], points[j]);
+                ans <span style="color:#f92672">=</span> max(ans, <span style="color:#f92672">++</span>cnt[_val(xl)]);
+            }
+        }
+        <span style="color:#66d9ef">return</span> ans<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> _calc_xl(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> b) {
+        pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res;
+
+        <span style="color:#66d9ef">int</span> d_x <span style="color:#f92672">=</span> b[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> a[<span style="color:#ae81ff">0</span>];
+        <span style="color:#66d9ef">int</span> d_y <span style="color:#f92672">=</span> b[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> a[<span style="color:#ae81ff">1</span>];
+        <span style="color:#66d9ef">if</span> (d_y <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+            res.first <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; res.second <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            <span style="color:#66d9ef">return</span> res;
+        } <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (d_x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+            res.first <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; res.second <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">return</span>  res;
+        }
+
+        <span style="color:#66d9ef">bool</span> is_neg <span style="color:#f92672">=</span> false;
+        <span style="color:#66d9ef">if</span> (d_y <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+            is_neg <span style="color:#f92672">=</span> <span style="color:#f92672">!</span>is_neg;
+            d_y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>d_y;
+        }
+        <span style="color:#66d9ef">if</span> (d_x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+            is_neg <span style="color:#f92672">=</span> <span style="color:#f92672">!</span>is_neg;
+            d_x <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>d_x;
+        }
+        <span style="color:#66d9ef">int</span> gcd <span style="color:#f92672">=</span> _gcd(d_x, d_y);
+        res.first <span style="color:#f92672">=</span> d_x <span style="color:#f92672">/</span> gcd <span style="color:#f92672">*</span> (is_neg <span style="color:#f92672">?</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>);
+        res.second <span style="color:#f92672">=</span> d_y <span style="color:#f92672">/</span> gcd;
+        <span style="color:#66d9ef">return</span> res;
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_gcd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+        <span style="color:#66d9ef">return</span> b <span style="color:#f92672">?</span> gcd(b, a<span style="color:#f92672">%</span>b)<span style="color:#f92672">:</span> a;
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_val</span>(pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> xl) {
+        <span style="color:#66d9ef">return</span> (xl.first<span style="color:#f92672">+</span><span style="color:#ae81ff">10000</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">10000</span> <span style="color:#f92672">+</span> xl.second;
+    }
+};
+</code></pre></div><p>以下是官方题解的代码：</p>
+<pre tabindex="0"><code>class Solution {
+public:
+    int gcd(int a, int b) {
+        return b ? gcd(b, a % b) : a;
+    }
+
+    int maxPoints(vector&lt;vector&lt;int&gt;&gt;&amp; points) {
+        int n = points.size();
+        if (n &lt;= 2) {
+            return n;
+        }
+        int ret = 0;
+        for (int i = 0; i &lt; n; i++) {
+            if (ret &gt;= n - i || ret &gt; n / 2) {
+                break;
+            }
+            unordered_map&lt;int, int&gt; mp;
+            for (int j = i + 1; j &lt; n; j++) {
+                int x = points[i][0] - points[j][0];
+                int y = points[i][1] - points[j][1];
+                if (x == 0) {
+                    y = 1;
+                } else if (y == 0) {
+                    x = 1;
+                } else {
+                    if (y &lt; 0) {
+                        x = -x;
+                        y = -y;
+                    }
+                    int gcdXY = gcd(abs(x), abs(y));
+                    x /= gcdXY, y /= gcdXY;
+                }
+                mp[y + x * 20001]++;
+            }
+            int maxn = 0;
+            for (auto&amp; [_, num] : mp) {
+                maxn = max(maxn, num + 1);
+            }
+            ret = max(ret, maxn);
+        }
+        return ret;
+    }
+};
+</code></pre>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

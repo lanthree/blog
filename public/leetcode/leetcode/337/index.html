@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        337. 打家劫舍 III
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/house-robber-iii/">原题链接</a></p>
+<p>类似DP过程的DFS，需要记录下已经搜索过的情况，否则会超时。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Definition for a binary tree node.
+</span><span style="color:#75715e"> * struct TreeNode {
+</span><span style="color:#75715e"> *     int val;
+</span><span style="color:#75715e"> *     TreeNode *left;
+</span><span style="color:#75715e"> *     TreeNode *right;
+</span><span style="color:#75715e"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span style="color:#75715e"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span style="color:#75715e"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span style="color:#75715e"> * };
+</span><span style="color:#75715e"> */</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+    unordered_map<span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">*</span>, unordered_map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> vis;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> rob(TreeNode<span style="color:#f92672">*</span> root) {
+        <span style="color:#66d9ef">int</span> max_v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        DFS(root, false, max_v);
+        <span style="color:#66d9ef">return</span> max_v;
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> DFS(TreeNode<span style="color:#f92672">*</span> root, <span style="color:#66d9ef">bool</span> is_f, <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> max_v) {
+        <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+            <span style="color:#66d9ef">return</span>;
+        }
+        <span style="color:#66d9ef">if</span> (vis[root][is_f]) {
+            max_v <span style="color:#f92672">=</span> vis[root][is_f];
+            <span style="color:#66d9ef">return</span>;
+        }
+
+        <span style="color:#66d9ef">if</span> (is_f) {
+            <span style="color:#66d9ef">int</span> max_v_l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, max_v_r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            DFS(root<span style="color:#f92672">-&gt;</span>left, false, max_v_l);
+            DFS(root<span style="color:#f92672">-&gt;</span>right, false, max_v_r);
+            max_v <span style="color:#f92672">+=</span> max_v_l <span style="color:#f92672">+</span> max_v_r;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">int</span> max_v_l_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, max_v_r_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            DFS(root<span style="color:#f92672">-&gt;</span>left, false, max_v_l_1);
+            DFS(root<span style="color:#f92672">-&gt;</span>right, false, max_v_r_1);
+
+            <span style="color:#66d9ef">int</span> max_v_l_2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, max_v_r_2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            DFS(root<span style="color:#f92672">-&gt;</span>left, true, max_v_l_2);
+            DFS(root<span style="color:#f92672">-&gt;</span>right, true, max_v_r_2);
+            max_v <span style="color:#f92672">+=</span> max(max_v_l_1 <span style="color:#f92672">+</span> max_v_r_1, max_v_l_2 <span style="color:#f92672">+</span> max_v_r_2 <span style="color:#f92672">+</span> root<span style="color:#f92672">-&gt;</span>val);
+        }
+        vis[root][is_f] <span style="color:#f92672">=</span> max_v;
+    }
+};
+</code></pre></div><p>题解的DFS过程简化了<strong>很多</strong>！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    unordered_map <span style="color:#f92672">&lt;</span>TreeNode<span style="color:#f92672">*</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> f, g;
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs</span>(TreeNode<span style="color:#f92672">*</span> node) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>node) {
+            <span style="color:#66d9ef">return</span>;
+        }
+        dfs(node<span style="color:#f92672">-&gt;</span>left);
+        dfs(node<span style="color:#f92672">-&gt;</span>right);
+        f[node] <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>val <span style="color:#f92672">+</span> g[node<span style="color:#f92672">-&gt;</span>left] <span style="color:#f92672">+</span> g[node<span style="color:#f92672">-&gt;</span>right];
+        g[node] <span style="color:#f92672">=</span> max(f[node<span style="color:#f92672">-&gt;</span>left], g[node<span style="color:#f92672">-&gt;</span>left]) <span style="color:#f92672">+</span> max(f[node<span style="color:#f92672">-&gt;</span>right], g[node<span style="color:#f92672">-&gt;</span>right]);
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">rob</span>(TreeNode<span style="color:#f92672">*</span> root) {
+        dfs(root);
+        <span style="color:#66d9ef">return</span> max(f[root], g[root]);
+    }
+};
+</code></pre></div><p>优化掉额外数组的版本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SubtreeStatus</span> {
+    <span style="color:#66d9ef">int</span> selected;
+    <span style="color:#66d9ef">int</span> notSelected;
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    SubtreeStatus dfs(TreeNode<span style="color:#f92672">*</span> node) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>node) {
+            <span style="color:#66d9ef">return</span> {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>};
+        }
+        <span style="color:#66d9ef">auto</span> l <span style="color:#f92672">=</span> dfs(node<span style="color:#f92672">-&gt;</span>left);
+        <span style="color:#66d9ef">auto</span> r <span style="color:#f92672">=</span> dfs(node<span style="color:#f92672">-&gt;</span>right);
+        <span style="color:#66d9ef">int</span> selected <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>val <span style="color:#f92672">+</span> l.notSelected <span style="color:#f92672">+</span> r.notSelected;
+        <span style="color:#66d9ef">int</span> notSelected <span style="color:#f92672">=</span> max(l.selected, l.notSelected) <span style="color:#f92672">+</span> max(r.selected, r.notSelected);
+        <span style="color:#66d9ef">return</span> {selected, notSelected};
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">rob</span>(TreeNode<span style="color:#f92672">*</span> root) {
+        <span style="color:#66d9ef">auto</span> rootStatus <span style="color:#f92672">=</span> dfs(root);
+        <span style="color:#66d9ef">return</span> max(rootStatus.selected, rootStatus.notSelected);
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

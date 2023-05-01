@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>八股文 on Engineers Cool</title>
+    <link>https://engineers.cool/categories/%E5%85%AB%E8%82%A1%E6%96%87/</link>
+    <description>Recent content in 八股文 on Engineers Cool</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Feb 2022 21:49:17 +0800</lastBuildDate><atom:link href="https://engineers.cool/categories/%E5%85%AB%E8%82%A1%E6%96%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[WIP] golang</title>
+      <link>https://engineers.cool/posts/stereotype/language/golang/</link>
+      <pubDate>Wed, 02 Feb 2022 21:49:17 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/language/golang/</guid>
+      <description>流程语句 for // Like a C for for init; condition; post { } // Like a C while for condition { } // Like a C for(;;) for { } 遍历容器
+for key, value := range oldMap { newMap[key] = value } // 甚至可以遍历字符串 for pos, char := range &amp;#34;日本\x80語&amp;#34; { // \x80 is an illegal UTF-8 encoding  fmt.Printf(&amp;#34;character %#U starts at byte position %d\n&amp;#34;, char, pos) } // print // character U+65E5 &amp;#39;日&amp;#39; starts at byte position 0 // character U+672C &amp;#39;本&amp;#39; starts at byte position 3 // character U+FFFD &amp;#39;�&amp;#39; starts at byte position 6 // character U+8A9E &amp;#39;語&amp;#39; starts at byte position 7  // 只要key for key := range m { if key.</description>
+    </item>
+    
+    <item>
+      <title>Effective C&#43;&#43;</title>
+      <link>https://engineers.cool/posts/stereotype/language/effective_cpp/</link>
+      <pubDate>Wed, 02 Feb 2022 21:49:07 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/language/effective_cpp/</guid>
+      <description>条款01：视C++为一个语言联邦  C：C++以C为基础，区块（blocks）、语句（statements）、预处理器（preprocessor）、内置数据类型（built-in data types）、数据（arrays）、指针（pointers）等统统来自C。 Object-Oriented C++：这部分也就是C with Classes所诉求的，classes（包括构造函数和析构函数），封装（encapsulation）、继承（inheritance）、多态（polymorphism）、virtual函数（动态绑定）……等等。 Template C++：这是C++的泛型编程（generic programming）部分，它们带来崭新的编程范型（prpgramming paradigm），也就是所谓的template metaprogramming（TMP，模版元编程）。 STL：STL是个template程序库。  请记住：
+ C++高效编程守则视状况而变化，取决于你使用C++的哪一部分。  条款02：尽量以const，enum，inline替换#define 以常量替换#define：
+ 定义常量指针（constant pointers），如果要在头文件内定义一个常量的（不变的）char*-bases字符串，必须写const两次：  const char* const authorName = &amp;quot;Scott Meyers&amp;quot;; 或者写成const std::string authorName(&amp;quot;Scott Meyers&amp;quot;);   class专属常量   // static class 常量声明位于头文件内 class CostEstimate { private: static const double FudgeFactor; ... }; // static class常量定义位于实现文件内 const double CostEstimate::FudgeFactor = 1.35;     enum hack：一个属于枚举类型（enumerated type）的数值可权充ints被使用</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://engineers.cool/posts/stereotype/language/cpp/</link>
+      <pubDate>Wed, 02 Feb 2022 21:49:00 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/language/cpp/</guid>
+      <description>程序编译过程 编译过程分为四个过程：编译（编译预处理、编译、优化），汇编，链接。
+ 编译预处理：处理以#开头的指令 编译、优化：将源码.cpp文件翻译成.s汇编代码 汇编：将汇编代码.s翻译成机器指令.o文件 链接：汇编程序生成的木匾文件，即.o文件，并不会立即执行，因为可能会出现：.cpp文件中的函数引用了另一个.cpp文件中定义的符号或者调用了某个库文件中的函数。那链接的目的。就是将这些文件对应的目标文件连接成一个整体，从而生成可执行的文件  链接分为两种：
+ 静态链接：代码从其所在的静态链接库中拷贝到最终的可执行文件中，在该程序被执行时，这些代码会被装入到该进程的虚拟地址空间中 动态链接：代码被放到动态链接库或共享对象的某个目标文件中，链接程序只是在最终的可执行程序中记录了共享对象的名字等一些信息。在程序执行时，动态链接库的全部内容会被映射到运行时相应进行的虚拟地址空间  内存管理 C++内存分区：栈、堆、全局/静态存储区、常量存储区、代码区
+ 栈：存放函数的局部变量、函数参数、返回地址等，由编译器自动分配和释放 堆：动态申请的内存空间，就是由malloc/new分配的内存块，有程序员控制它的分配和释放，如果程序执行结束没有释放，操作系统会自动回收 全局/静态存储区（.bss段和.data段）：存放全局变量和静态变量，程序运行结束操作系统自动释放，在C语言中，为初始化的放在.bss段中，初始化的放在.data段中，C++中不再区分 常量存储区（.data段）：存放的是常量，不允许修改，程序运行结束自动释放 代码区（.text段）：存放代码，不允许修改，但可以执行。编译后的二进制文件存放在这里  以上存储区在内容中的分布是如下形式（从低地址到高地址）：.text段 -&amp;gt; .data段 -&amp;gt; 堆 -&amp;gt; unused-&amp;gt; 栈 -&amp;gt; env
+栈和堆的区别     栈 堆     申请方式 系统自动分配 程序主动申请   申请后系统响应 分配栈空间，如果剩余空间大于申请空间则分配成功，否则分配失败栈溢出 堆在内存中呈现的方式类似于链表（记录空闲地址空间的链表），在链表上寻找第一个大于申请空间的节点分配给程序，将该结点从链表中删除，大多数系统中该块空间的首地址存放的本次分配空间的大小，便于释放，将该快空间上的剩余空间再次连接在空闲链表上   地址 栈在内存中是连续的一块空间（向低地址扩展） 堆在内存中的空间（向高地址扩展）是不连续的   申请效率 申请效率高 申请效率低，使用起来方便但是容易产生碎片   存放的内容 局部变量，函数的参数 由程序控制    虚表  虚表  内存对齐 内存对齐：编译器将程序中的每个“数据单元”安排在字的整数倍的地址指向的内存之中</description>
+    </item>
+    
+    <item>
+      <title>操作系统</title>
+      <link>https://engineers.cool/posts/stereotype/os/intro/</link>
+      <pubDate>Wed, 02 Feb 2022 21:48:01 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/os/intro/</guid>
+      <description>进程间的通信方式 首先需要理解下面的概念：
+ 竞态条件：即两个或多个线程同时对一个共享数据进行修改，从而影响程序运行的正确性时，被称为竞态条件（race condition）。 临界区：不仅共享数据会造成竞态条件，事实上共享文件、共享内存也会造成竞态条件，避免方式可以概括为：禁止一个或多个进程在同一时刻对共享资源（包括共享内存、共享文件等）进行读写。而读写共享资源的程序片段，就是临界区。  进程间的通信方式：管道、消息队列、信号量、信号、共享内存、socket套接字
+ 管道：无名管道、有名管道  无名管道：半双工通信，具有固定的读端和写端；是一个特殊的文件；只用于亲属进程间的通信； 有名管道：和无名管道类似，但可以用于非亲属进程间的通信   消息队列：是一个链接表，存放于系统的内核。消息队列有特定的格式和优先级。具有读权限的进程可以向消息队列读数据，具有写权限的进程刻意向消息队列中添加数据。 信号量：是一个计数器，用于进程间同步与互斥，不记录进程间通信的数据 信号：是一个复杂的通信方式，一帮用于通知接收进程某件事已发生 共享内存：多个进程共享同一个内存区域，不同进程可以及时看到其他进程对数据的修改 socket套接字：用于不同主机间的进程通信  进程和线程的区别 操作系统为正在运行的程序提供的抽象，就是所谓的进程（process）。
+ 一个进程可以包含多个线程；线程在进程下进行 不同进程数据很难共享 同一进程下不同线程间数据很易共享 进程要比线程消耗更多的计算机资源 进程间不会互相影响，一个线程挂掉将导致整个进程挂掉 进程可以扩展到多机，线程最多扩展到多核 线程使用的内存地址可以上锁，即一个线程使用某些共享内存时，其他线程必须等他结束，才能使用这一块内存 - 互斥锁 进程使用的内存地址可以限定使用量 - 信号量  </description>
+    </item>
+    
+    <item>
+      <title>AVL树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/avl/</link>
+      <pubDate>Wed, 02 Feb 2022 21:34:05 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/avl/</guid>
+      <description>AVL（Adelson-Velskii and Landis）树是带有平衡条件的（balance condition）的二叉查找树：一颗AVL树是其每个节点的左子树和右子树的高度最多差1的二叉查找树。
+ 高度是指从该节点到叶子节点的最长简单路径边的条数。叶子结点高度为0，NIL结点高度-1。
+ 可以证明，数高为O(logN)。在假设 删除为懒惰删除 情况下，删除和查找都可以在简单地在O(logN)复杂度内执行。只有插入操作，因为可能会破坏平衡条件，需要做操作，我们称其为旋转（rotation）。在插入以后，只有那些从插入点到根结点的路径上的结点的平衡可能被改变，因此只有这些结点的可能需要平衡，我们沿着这条路径平衡该树。
+可以如下，简单定义AVL树：
+template &amp;lt;typename Comparable&amp;gt; class AvlTree { struct AvlNode { Comparable element; AvlNode* left; AvlNode* right; int height; AvlNode(const Comparable&amp;amp; that_ele, AvlNode* lt, AvlNode* rt, int h = 0) : element(that_ele), left(lt), right(rt), height(h) {} }; public: AvlTree() : root(nullptr) {} int Height() const { return root == nullptr ? -1 : _height(root); } private: int _height(AvlNode* t) const { return t == nullptr ?</description>
+    </item>
+    
+    <item>
+      <title>B&#43;树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/b&#43;tree/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:58 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/b&#43;tree/</guid>
+      <description>定义 基于B树的定义上，有以下修改：
+ 数据项存储在叶子上 有M个子树的中间节点包含有M个元素（B树中是M-1个元素），每个元素不保存数据，只用来索引，所有数据都保存在叶子节点 所有的中间节点元素都同时存在于子节点，在子节点元素中是最大（或最小）元素。（以下以最小为例） 所有的叶子结点中包含了全部元素的信息，及指向含这些元素记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接 平级结点间通过双向链表相连  一个可能的3阶B+树如下：
+单个数据项的查找过程类似于B树，而且磁盘读取次数更稳定（B树因内部结点有数据项，可能提前结束，也可能因为数据项过大，多次磁盘读取才能找其子结点）。
+另外，因为B+的平级结点间通过双向链表相连，所以范围查找具有更好的性能（B树需要多次递归），例如下图查找19到37所有值的过程：
+插入/删除 插入/删除过程与B树基本一致。（笑）
+参考  漫画：什么是B+树？ wikipedia B+树 再有人问你为什么MySQL用B+树做索引，就把这篇文章发给她  </description>
+    </item>
+    
+    <item>
+      <title>B树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/btree/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:56 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/btree/</guid>
+      <description>?&amp;gt; 只有基本思想，没有代码。基本摘抄自《数据结构与算法分析 C++描述》。另外，网上一般看到的B树定义中，非叶结点也是会存储数据的，其他基本一样
+!&amp;gt; 又看了算法导论，果然这里有问题，B树在中间节点也有数据，参考下面定义中1、2条的补充说明。
+假设磁盘上持久化维护着一颗查找树。如果它是普通的查找树，那么最坏情况下需要N次磁盘读取才能找到需要的值。为了减少磁盘访问次数（磁盘访问相对于CPU计算慢很多），AVL树可以把查找次数收敛到logN。为了仅一步减少查找次数，直观上，可以让结点有更多分支，自然就会有更少的高度。一颗完全二叉树的高度大约为$\log_2N$，一颗完全M叉树的高度大约是$\log_MN$。
+定义 在二叉查找树中，需要一个键来决定到底取用两个分支中哪一个；在M叉树中，则需要M-1个键。另外，必须制定平衡策略，以保障其不会退化成二叉树，甚至是链表。B树由此设计，原则上B树保证只有少数的磁盘访问（树的高度）。阶为M的B树是一颗具有下列结构特性的树：
+ 数据项存储在叶子上  看网上也有的定义是非叶子结点也可以存数据项，即没有这一条   非叶结点存储直到M-1个键，以指示搜索的方向；键i代表子树i+1中的最小的键  在网上看到的版本，键i还附带数据，所以键i分割其左右的子树，而不是代表子树i+1中的最小的键   树的根或者是一片树叶，或者其儿子树在2和M之间 除根外，所有非树叶结点的儿子树在$\lceil M/2 \rceil$和M之间 所有的树叶都在相同的深度上，并有$\lceil L/2 \rceil$和L之间个数数据项，稍后描述L的确定  下图是一个5阶B树的一个例子。注意，所有的非树叶的结点的儿子树都在3和5之间（从而有2到4个键）；根可能只有两个儿子。设定L是5，因此每片树叶有3到5个数据项。
+每个节点代表一个磁盘区块，我们可以据此选择M和L。例如，一个区块容纳8192字节，假设每个键32字节，M阶B树的结点有M-1个键，即32M-32字节，每个分支是4字节（指向其他内存区块），有M个分支，总共36M-32字节，使不超过8192字节的M最大值是228，因此M可以是228。假设每条记录是256字节，8192/256=32，那么可以选择L为32。那么假设满树的情况下，一层可以容纳32*228=7296个数据项，多一层则多228倍。另外，最坏情况下，树高近似是$\log_{M/2}{N}$
+插入 首先设想把57插入到图2的5阶B树中，沿树向下查找，把它作为第5个儿子添加到树叶中：
+这是简单情况，因为该树叶还没有装满。现在设想再把55插入树中。观察上图可以发现，55想要插入的树叶已经满了，现在由于其父结点的子结点树不到L，所以可以把该叶子结点分成两片树叶，每片3项：
+再设想把40插入图4中，此时必须把包含键35到39而又要包含40的树叶，分成两片。但是，这将使父结点有6个儿子，可是它最多只能有5个儿子。因此，要分裂这个父结点。结果在下图给出：
+正如这里的情形所示，当一个非树叶结点分裂时，它的父结点得到一个儿子。当父结点的儿子个数已经达到规定的限度，那么将沿树向上分裂结点，直到找到一个父结点它不需要再分裂，或者到达树根。如果需要分裂树根，那么需要建立一个新的根，这个根以分裂得到的两个树根作为它的两个儿子。这就是准许树根可以有两个儿子特权的原因。这也是B树增加高度的唯一方式。
+还有其他方式处理儿子过多的情况。一种方法是在相邻结点有空间时把一个儿子交给该结点领养。相对于直接分裂，这趋向于使得结点更满。
+删除 删除结点时，如果被删的项所在的树叶的数据项数已经是最小限度，那么可以通过在邻结点本身没有达到最小值时领养一个邻项来矫正这种状态。如果邻结点也已经是最小值，那么可以合并两个结点形成一个满页。可是，这会使得父结点失去一个儿子。如果失去儿子的结果又引起父结点的儿子数低于最小值，那么使用相同的策略继续进行。这个过程可以一直上行到根。如果根只剩一个儿子，那么删除根，并让这个儿子成为新根。这是B树降低高度的唯一的方式。
+参考  《数据结构与算法分析 C++描述》 wikipedia B树  </description>
+    </item>
+    
+    <item>
+      <title>红黑树</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/rbtree/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:48 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/rbtree/</guid>
+      <description>定义 红黑树是一种具有下列着色性质的二叉查找树：
+ 每一个结点或者着红色，或者着黑色 根是黑色的 如果一个结点是红色的，那么它的子结点必须是黑色的 从一个几点到一个NULL指针的每一条路径都必须包含相同数目的黑色结点  一个典型的红黑树如下图所示：
+插入 首先，考虑插入过程，通常把新项作为树叶放到树种（通过二叉查找树找到合适的位置）。然后考虑着色以及平衡的事情。如果把该项涂成黑色，那么在不做其他调整情况下，会违反性质4。如果把该项涂成红色，在父结点是黑色时，插入操作完成，在父结点是红色时，为了不违反性质3，也需要做调整（着色改变 和 树的旋转）。以下以涂成红色为例讨论。
+?&amp;gt; 感觉涂成黑色也可以？只是当前看到的这个没有讨论？
+如果新项（着红色）的父结点是黑色，那么插入完成。如果父结点是红色，那么有以下几种情况（每种都有一个镜像对称）需要考虑。（另外以下讨论中，以NULL为黑色）
+父结点的兄弟结点是黑色（情况A）  以下讨论都，令X是新插入结点，P是父结点，S是该父结点的兄弟结点（若存在），G是祖父结点
+ 如果S结点是黑色（例如在图1中插入8），在这种情况下，只有X和P是红色，G是黑色（G如果不是黑色，那么在插入新结点前，就会有红G-&amp;gt;红P的违反性质3的情况）。X、P、G可以行政一个一字型链或者之字形链。下图指出，当P是G的左儿子时，应如何旋转。（还有镜像的P是右儿子的情况，自行想象）
+这两种情况下，子树的新根颜色保持不变，不会打破新跟与原子树的父结点的着色约束。另外，新根到A、B、C的叶子上的黑色结点个数保持不变：
+ 情况1：A为空，不讨论；旋转前，G到B经历1个黑色结点，G到C经历2个黑色结点，旋转后 新根到B、C经历的黑色结点个数一样。 情况2：B1、B2为空，不讨论；旋转前，G到A经历1个黑色结点，G到C经历2个黑色结点，旋转后 新根到A、C经历的黑色结点个数一样。  父结点的兄弟结点是红色（情况B） 如果S结点是红色（例如在图1中插入79），在这种情况下，X、P、S是红色，G是黑色。此时，从跟结点G到A、B、C只有1个黑结点，在旋转后，我们也希望新根到A、B、C的黑色结点树是1（这样才能保证，新根到A、B、C的叶子的黑色结点数一致）。又由于不能有连续的红色结点，所以S和新根需要是红色，而G和X是黑色：
+子树是平衡了，但是子树的父结点（R）可能是红色。这时，需要判断结点R的兄弟结点是黑色还是红色，然后重新按上面讨论的 情况A、情况B 处理，直到不再有两个相连的红色结点。
+删除 !&amp;gt; “删除”操作的内容，基本来自Ref3。
+ 要删除的结点，没有子结点，考虑两种情况：  该结点为红色，直接删除即可。 该结点为黑色，则需要进行平衡操作，下图展示了这种需要平衡的情况   要删除的结点，有一个子结点。此时，要删除的结点一定是黑色，其子结点一定是红色。那么可以让删除结点的父结点连接到该子结点，并着黑色。 有两个子结点时。与二叉搜索树一样，把 左子结点的最大值/右子结点的最小值 复制到要删除的结点上，把问题转换为删除被复制的结点，递归此过程，直到把问题转换为情况1 或者 情况2。   以上过程，总体上，是把删除结点的问题，归结为删除最下层子结点的问题：如果该最下层子结点是红色（情况1.1、情况2），那么可以安全的删除。如果该最下层子结点是黑色（情况1.2），那需要做平衡操作。
+ 平衡操作 约定结点名称如下：
+另外，记h(A-&amp;gt;B-&amp;gt;NIL)表示从A走到B再走到某一个NIL结点的黑色结点数量。
+接下来考虑如何平衡，首先需要平衡是因为删除了一个黑色结点D（图4），导致其父结点走这个儿子的路径的黑色结点树少了1。那么，为了平衡有两种操作：
+ 操作1：h(P-&amp;gt;N-&amp;gt;NIL)不变，h(P-&amp;gt;S-&amp;gt;NIL)减1。这种平衡操作会使得h(G-P-&amp;gt;NIL)减1，此时需要将P当成新的N，向上递归处理。 操作2：h(P-&amp;gt;N-&amp;gt;NIL)加1，h(P-&amp;gt;S-&amp;gt;NIL)不变。也就是回复原来的黑色结点数。  N为跟结点 无需平衡操作。
+S为黑色 先考虑，S的子结点全黑的情况：
+ P为黑：此时可以通过S着红色，来达到操作1，然后以P为新的需平衡结点，向上递归处理。 P为红：此时可以通过交换P、S的着色（P：红-&amp;gt;黑；S：黑-&amp;gt;红），来达到操作2，完成平衡。  再考虑，S的子结点不全黑：</description>
+    </item>
+    
+    <item>
+      <title>跳表</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/skip_list/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:29 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/skip_list/</guid>
+      <description>简介 跳表（skip list）是一个有序链表的随机化的变体，有附加的、平行的链表。在上层的平行链表指数级的跳过多个元素。为了快速找到正确的部分，搜索从最高层开始，递进地进入底层。加入元素时，先随机选择层高，然后给该层以及所有下层的链表的正确顺序的位置加入该元素。
+   算法 平均 最差     Space $O(n)$ $O(n\log n)$   Search $n\log n)$ $O(n)$   Insert $n\log n)$ $O(n)$   Delete $n\log n)$ $O(n)$    实现 数据结构以及初始化 template &amp;lt;typename Comparable, typename Value&amp;gt; class SkipList { struct Node { Comparable key; Value val; Node* forward[MAXLEVEL]; }; public: SkipList() {} private: Node* hdr_; // 链表头  int list_level_; // 链表当前level }; 定义Node为跳表的一个结点（注意，这个结点包含跳表的多个层级的指针forward，最低0，最高MAXLEVEL-1）。下图左边为一个有两个key的跳表的内部结构示意图。第0个结点只用于维护表头，不存储数据；每个结点都有一个forward数组，维护该结点对应层级的下一个结点的地址：例如node1层级是0，那么只有forward[0]有效，并指向了node2；而node2的层级是2，那么forward[0~2]都有效，虽然都指向了nullptr：</description>
+    </item>
+    
+    <item>
+      <title>排序</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/sort/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:23 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/sort/</guid>
+      <description>冒泡排序 时间复杂度O(n^2)
+ 每次从尾到头（已排序列的尾部）迭代遍历，把相邻数字的更小（大）的元素放前面 重复1步，直到所有元素均排序完毕。  选择排序 时间复杂度O(n^2)
+ 首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置（与之交换位置即可）。 再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾（同1）。 重复第2步，直到所有元素均排序完毕。  插入排序 插入排序由N-1此插入组成，对于第i趟，把下标i的数字插入到下标0~i的合适位置。时间复杂度O(n^2)。
+template &amp;lt;typename Comparable&amp;gt; void insertionSort(std::vector&amp;lt;Comparable&amp;gt;&amp;amp; v) { int j; for (int p = 1; p &amp;lt; v.size(); p++) { Comparable tmp = v[p]; for (j = p; j &amp;gt; 0 &amp;amp;&amp;amp; tmp &amp;lt; v[j - 1]; j--) { v[j] = v[j - 1]; } v[j] = tmp; } } 可能的STL实现：
+template &amp;lt;typename Iterator, typename Comparator, typename Object&amp;gt; void _insertionSort(const Iterator&amp;amp; begin, const Iterator&amp;amp; end, Comparator lessThan, const Object&amp;amp; obj) { Iterator j; for (Iterator p = begin + 1; p !</description>
+    </item>
+    
+    <item>
+      <title>拓扑排序</title>
+      <link>https://engineers.cool/posts/stereotype/alg_ds/tp_sort/</link>
+      <pubDate>Wed, 02 Feb 2022 21:33:19 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/alg_ds/tp_sort/</guid>
+      <description>拓扑排序（topological sort）是对有向无环图的顶点的一种排序。LeetCode 210.课程表II基本是一道模板题，可以参考这道题。
+伪代码：
+void Graph::toposort() { queue&amp;lt;Vertex&amp;gt; q; int counter = 0; for Vectex &amp;amp;v : vectexes_: if v.indegree == 0: q.push(v); while not q.empty(): Vertex&amp;amp; v = q.top(); q.pop(); v.topoNum = ++counter; for Vectex &amp;amp;w : v.linked: if (--w.indegree == 0): q.push(w); if counter != VECTEX_NUM: throw CycleFoundException(); } </description>
+    </item>
+    
+    <item>
+      <title>MySQL事务</title>
+      <link>https://engineers.cool/posts/stereotype/database/transaction/</link>
+      <pubDate>Wed, 02 Feb 2022 19:51:17 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/database/transaction/</guid>
+      <description>基于InnoDB
+ 数据库事务指的是：满足ACID特性的一组操作。
+ACID  原子性（Atomicity）：事务被视为不可分割的最小单元，事务的所有操作要么全部提交成功，要么全部失败回滚。  回滚可以用日志实现，日志记录着事务所执行的修改操作，在回滚时反向执行这些修改操作即可。   一致性（Consistency）：数据库在事务执行前后都保持一致性状态。在一致性状态下，所有事务对一个数据库的读结果都是相同的。 隔离性（Isolation）：一个事务所做的修改在最终提交以前，对其他事务是不可见的。 持久性（Durability）：一旦事务提交，则其所做的修改将会永远保存到数据库中，即使系统发生崩溃，事务执行的结果也不能丢失。  可以通过数据库备份和恢复来实现，在系统发生崩溃时，使用备份的数据库进行数据恢复    可以按如下思路理解：
+ 只有满足一致性，事务的执行结果才是正确的 在无并发的情况下，事务串行执行，隔离型一定能满足。此时只要能满足原子性，就能满足一致性 在并发的情况下，多个事务并行执行，事务不仅要满足原子性，还需要满足隔离性，才能满足一致性 事务满足持久化，是为了能够应对数据库崩溃的情况  并发一致性问题 在并发情况下，不考虑事务的隔离性，会有以下并发一致性问题：
+ 读脏数据：T1修改了一个数据，T2随后读取这个数据，如果T1撤销了这次修改，T2读取的就是脏数据 不可重复读：T2读取了一个数据，T1对该数据做了修改，如果T2再次读取这个数据，此时读取的结果和第一次读取的结果不同 幻影读：T1读取某个范围的数据，T2在这个范围插入更新的数据，T1再次读取这个范围的数据，此时读取的结果和第一次读取的结果不同  产生并发不一致问题的主要原因，是破坏了事务的隔离性，解决方法是通过并发控制来保证隔离性。并发控制可以通过封锁来实现，但是封锁操作需要用户自己控制，相当复杂。数据库管理系统提供了事务的隔离级别，让用户以一种更轻松的方式处理并发一致性问题。
+隔离级别 MySQL支持SQL标准定义的四种隔离级别：
+ 读未提交（READ UNCOMMITTED）：事务中的修改，即使没有提交，对其它事务也是可见的 读提交（READ COMMITTED）：一个事务只能读取已经提交的事务所做的修改。即，一个事务所做的修改在提交之前对其他事务是不可见的 可重复读（REPEATABLE READ）：保证在同一个事务中多次读取同一个数据的结果是一样的 串性化（SERIALIZABLE）：强制事务串性执行  从上往下，隔离强度逐渐增强，性能逐渐变差。采用哪种隔离级别要根据系统需求权衡决定，其中，可重复读是MySQL的默认级别。
+事务隔离就是为了解决上面并发一致性的问题，下面展示了4中隔离级别对这三个问题的解决程度：
+   隔离级别 脏读 不可重复读 幻读     读未提交 可能 可能 可能   读提交  可能 可能   可重复读   可能   串性化       修改丢失 如果多个线程操作，基于同一个查询结果对表中的记录进行修改，那么后修改的记录会覆盖前面修改的记录，前面的修改丢失掉了，这就叫丢失更新。</description>
+    </item>
+    
+    <item>
+      <title>MySQL锁</title>
+      <link>https://engineers.cool/posts/stereotype/database/lock/</link>
+      <pubDate>Wed, 02 Feb 2022 19:51:10 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/database/lock/</guid>
+      <description>锁粒度 MySQL提供了两种封锁粒度：行级锁、表级锁。
+应该尽量只锁定需要修改的那部分数据，而不是所有的资源。锁定的数据量越少，发生锁冲突的可能就越少，系统的并发程度就越高。锁的各种操作（包括获取锁、释放锁 以及 检查锁状态）都需要消耗资源。
+MySQL不同的存储引擎支持不同的锁机制，所有的存储引擎都以自己的方式实现了锁机制，服务器层完全不了解存储引擎中的锁实现：
+ InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁（table-level locking），但默认情况下采用行级锁。 MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking） BDB存储引擎采用的是页面锁（page-level locking），也支持表级锁  不同粒度锁的比较：
+ 表级锁：开销小，加锁快；不会出现死锁；锁粒度度大，发生冲突的高度最高，并发度最低。  存储引擎通过 总是一次性同时获取所有需要的锁 以及 总是按相同的顺序获取表锁 来避免死锁。   行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突概率最低，并发度也最高。  最大程度的支持并发，同时也带来了最大的锁开销。 在InnoDB中，除单个SQL组成的事物外，锁是逐步获得的，这就决定了在InnoDB中发生死锁是可能的。 行级锁只在存储引擎层实现，而MySQL服务器层没有实现。 行级锁更适合于有大量索引条件并发更新少量不同数据，同时又有并发查询的应用，如一些在线事务处理（OLTP）系统。   页面锁：开销和加锁时间介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般。  锁类型  基于InnoDB
+  共享锁（读锁，S）：其他事务可以读，但不能写。  一个事务对数据对象A加了S锁，可以对A进行读操作，但是不能进行更新操作。加锁期间其他事务能对A加S锁，但是不能加X锁。   排他锁（写锁，X）：其他事务不能读，也不能写。  一个事务对数据对象A加了X锁，就可以对A进行读取和更新操作。加锁期间其他事务不能对A加任务锁。    为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks）：意向共享锁（IS）、意向排他锁（IX）。IS/IX都是表锁，用来表示一个事务想要在表中的某个数据行上加S锁或X锁。有以下两个规定：
+ 一个事务在获得某个数据行对象的S锁之前，必须先获得表的IS锁或更强的锁 一个事务在获得某个数据行对象的X锁之前，必须先获得表的IX锁  通过引入意向锁，事务T想要对表A加X锁，只需要检测是否有其他事务对表A加了X/IX/IS锁，后两者标识有其他使用给该表中的某行加了X/S锁。
+锁的兼容关系
+   锁 X IX S IS     X       IX  Y  Y   S   Y Y   IS  Y Y Y     任意IS/IX锁之间都是兼容的，他们只表示想要加锁，而不是真正加锁 S锁只有S锁和IS锁兼容，也就是说事务T想要对数据行加S锁，其他事务可以获得对表或者表中行的S锁  隐式与显示锁定 MySQL的InnoDB存储引擎采用两段锁协议（加锁和解锁分为两个阶段进行），会根据隔离级别在需要的时候自动加锁，并且所有的锁都是在同时时刻被释放，这被称为隐式锁定。</description>
+    </item>
+    
+    <item>
+      <title>计算机网络</title>
+      <link>https://engineers.cool/posts/stereotype/net/cheatsheet/</link>
+      <pubDate>Wed, 02 Feb 2022 19:10:18 +0800</pubDate>
+      
+      <guid>https://engineers.cool/posts/stereotype/net/cheatsheet/</guid>
+      <description>封装 &amp;amp;&amp;amp; 分用 当应用程序用TCP传输数据时，数据被送入协议栈中，然后逐个通过每一层直到当作一串比特流送入网络：
+更准确地说，上图IP和网络接口层之间传送的单元是分组（packet）。分组既可以是一个IP数据报，也可以是IP数据报的一个片（fragment）。
+当目的主机收到一个以太网数据帧时，数据就开始从协议栈中由底向上升，同时去掉各层协议加上的报文首部。每层协议盒都要去检查报文首部中的协议标识，以确定接收数据的上层协议，这一过程成为分用（Demultiplexing）：
+IP协议  总长度地段是指整个IP数据报的长度，以字节为单位。 标识字段唯一的标识主机发送的每一份数据报。通常每发送一份它的值就会加1。 TTL（time-to-live）生存时间字段设置了数据报可以经过的最多路由器数。通常为32或64。当该字段为0时，数据报就被丢弃，并发送ICMP报文通知给源主机。 首部校验和字段是根据IP首部计算的校验和码。ICMP、IGMP、UDP、TCP他们各自的首部中均含有同时覆盖 首部和数据 校验和码。  首先把校验和字段置为0，对首部中每个16bit进行二进制反码求和。    IP分片 物理网络层一般要限制每次发送数据帧的最大长度。任何时候IP层接收到一份要发送的IP数据报时，它要判断向哪个数据接口发送数据（选路），并查询该接口获得其MTU。IP把MTP与数据报长度比较，如果需要则进行分片。分片可以发生在原始发送端主机上，也可以发生在中间路由器上。
+对于发送端的每份IP数据报来说，其标识字段都包含一个唯一值。该值在数据报分片时被复制每个片中。标志字段用其中一个bit来表示“更多的片”。除了最后一片外，其他每个组成数据报的片都要把该bit置1。片偏移字段指的是该片偏移原始数据报开始出的位置。另外，当数据报被分片后，每个片的总长度值该为该片的长度值。
+ 标志字段中有一个bit称作“不分片”位。如果该bit为1，IP将不对数据报进行分片，相反把数据报丢弃并发送一个ICMP差错报文。
+ IP数据报指IP层端到端的传输单元（在分片之前和重新组装之后），分组是指在IP层和链路层之间传送的数据单元。一个分组可以是一个完整的IP数据报，也可以是IP数据报的分片。
+IP路由选择 路由表、路由寻址。
+ARP &amp;amp;&amp;amp; RARP ICMP UDP UDP是一个简单的瞄向数据报的运输层协议：进程的每个输出操作都正好产生一个UDP数据报，并组装成一份带发送的IP数据报。UDP数据报封装成一份IP数据报：
+UDP不提供可靠性：它把应用程序传给IP层的数据发送出去，但是不保证它们能到达目的地。UDP首部的各字段如下图所示：
+ IP数据报长度指的是数据报全长，该字段值最小为8字节（数据长度为0）。 UDP和TCP在首部都有覆盖它们首部和数据的检验和。UDP是可选的，TCP是必须的。  UDP校验和的计算方式跟IP首部检验和的计算方式类似（16bit的二进制反码和）。但是有2点不同：
+ UDP数据报的长度可以为奇数字节，在计算前会在最后补充字节0对齐 计算时包含一个12字节长的伪首部。  DNS TCP  TCP将用户数据打包构成报文段：它发送数据后启动一个定时器；另一端对收到的数据进行确认，对失序的数据重新排序，丢弃重复数据；TCP提供端到端的流量控制，并计算和验证一个强制性的检验和。
+ TCP提供一种面向连接的，可靠的字节流服务。TCP通过下列方式来提供可靠性：
+ 应用数据被分割成TCP认为最适合发送的数据块。 当TCP发送一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。 当TCP收到发自TCP连接另一端的数据，它将发送一个确认。 TCP将保持它首部和数据的检验和。如果手段的段校验和有差错，TCP将丢低这个报文段和不确认收到此报文段（希望发端超时重发）。 TCP将对收到的数据进行重新排序（到达失序），将收到的数据以正确的顺序交给应用层。 TCP的接收端丢弃重复的数据。 提供流量控制。TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一段发送接收端缓冲区所能接纳的数据。这将防止较快主机致使较慢主机的缓冲区益处。  插口对（socket pair）包含客户IP地址、客户端口号、服务器IP地址和服务器端口号的四元组，可唯一确定互联网络中每个TCP连接的双方。
+当建立一个新的连接时，SYN标志变1，序号字段包含有这个主机选择的该连接的初始序号ISN（Initial Sequence Number）。该主机要发送数据的第一个字节序号为这个ISN加1（每个传输的字节都被计数）。
+确认序号包含发送确认的一端所希望收到的下一个序号。只有ACK标志为1时确认序号字段才有效。另外，连接的每一端必须保持每个方向上的传输数据序号（全双工）。
+TCP首部中有6个标志bit，它们中的多个可同时被设置为1：
+ URG：紧急指针（urgent pointer）有效 ACK：确认序号有效 PSH：接收方应该尽快将这报文段交给应用层 RST：重建连接 SYN：同步序号用来发起一个连接 FIN：发端完成发送任务  TCP的流量控制有连接的每一端通过声明的窗口大小来提供。TCP检验和的计算和UDP检验和计算相似。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        MySQL锁
+    </h1>    
+    <h2 id="锁粒度">锁粒度</h2>
+<p>MySQL提供了两种封锁粒度：行级锁、表级锁。</p>
+<p>应该尽量只锁定需要修改的那部分数据，而不是所有的资源。锁定的数据量越少，发生锁冲突的可能就越少，系统的并发程度就越高。锁的各种操作（包括获取锁、释放锁 以及 检查锁状态）都需要消耗资源。</p>
+<p>MySQL不同的存储引擎支持不同的锁机制，所有的存储引擎都以自己的方式实现了锁机制，服务器层完全不了解存储引擎中的锁实现：</p>
+<ul>
+<li>InnoDB存储引擎既支持行级锁（row-level locking），也支持表级锁（table-level locking），但默认情况下采用行级锁。</li>
+<li>MyISAM和MEMORY存储引擎采用的是表级锁（table-level locking）</li>
+<li>BDB存储引擎采用的是页面锁（page-level locking），也支持表级锁</li>
+</ul>
+<p>不同粒度锁的比较：</p>
+<ul>
+<li>表级锁：开销小，加锁快；不会出现死锁；锁粒度度大，发生冲突的高度最高，并发度最低。
+<ul>
+<li>存储引擎通过 总是一次性同时获取所有需要的锁 以及 总是按相同的顺序获取表锁 来避免死锁。</li>
+</ul>
+</li>
+<li>行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突概率最低，并发度也最高。
+<ul>
+<li>最大程度的支持并发，同时也带来了最大的锁开销。</li>
+<li>在InnoDB中，除单个SQL组成的事物外，锁是逐步获得的，这就决定了在InnoDB中发生死锁是可能的。</li>
+<li>行级锁只在存储引擎层实现，而MySQL服务器层没有实现。</li>
+<li>行级锁更适合于有大量索引条件并发更新少量不同数据，同时又有并发查询的应用，如一些在线事务处理（OLTP）系统。</li>
+</ul>
+</li>
+<li>页面锁：开销和加锁时间介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般。</li>
+</ul>
+<h2 id="锁类型">锁类型</h2>
+<blockquote>
+<p>基于InnoDB</p>
+</blockquote>
+<ul>
+<li>共享锁（读锁，S）：其他事务可以读，但不能写。
+<ul>
+<li>一个事务对数据对象A加了S锁，可以对A进行读操作，但是不能进行更新操作。加锁期间其他事务能对A加S锁，但是不能加X锁。</li>
+</ul>
+</li>
+<li>排他锁（写锁，X）：其他事务不能读，也不能写。
+<ul>
+<li>一个事务对数据对象A加了X锁，就可以对A进行读取和更新操作。加锁期间其他事务不能对A加任务锁。</li>
+</ul>
+</li>
+</ul>
+<p>为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks）：意向共享锁（IS）、意向排他锁（IX）。IS/IX都是表锁，用来表示一个事务想要在表中的某个数据行上加S锁或X锁。有以下两个规定：</p>
+<ul>
+<li>一个事务在获得某个数据行对象的S锁之前，必须先获得表的IS锁或更强的锁</li>
+<li>一个事务在获得某个数据行对象的X锁之前，必须先获得表的IX锁</li>
+</ul>
+<p>通过引入意向锁，事务T想要对表A加X锁，只需要检测是否有其他事务对表A加了X/IX/IS锁，后两者标识有其他使用给该表中的某行加了X/S锁。</p>
+<p>锁的兼容关系</p>
+<table>
+<thead>
+<tr>
+<th>锁</th>
+<th>X</th>
+<th>IX</th>
+<th>S</th>
+<th>IS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>IX</td>
+<td></td>
+<td>Y</td>
+<td></td>
+<td>Y</td>
+</tr>
+<tr>
+<td>S</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>IS</td>
+<td></td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>任意IS/IX锁之间都是兼容的，他们只表示想要加锁，而不是真正加锁</li>
+<li>S锁只有S锁和IS锁兼容，也就是说事务T想要对数据行加S锁，其他事务可以获得对表或者表中行的S锁</li>
+</ul>
+<h2 id="隐式与显示锁定">隐式与显示锁定</h2>
+<p>MySQL的InnoDB存储引擎采用两段锁协议（加锁和解锁分为两个阶段进行），会根据隔离级别在需要的时候自动加锁，并且所有的锁都是在同时时刻被释放，这被称为隐式锁定。</p>
+<p>InnoDB也可以使用特定的语句进行显示锁定：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-SQL" data-lang="SQL"><span style="color:#66d9ef">SELECT</span> ... <span style="color:#66d9ef">LOCK</span> <span style="color:#66d9ef">In</span> <span style="color:#66d9ef">SHARE</span> <span style="color:#66d9ef">MODE</span>;
+<span style="color:#66d9ef">SELECT</span> ... <span style="color:#66d9ef">FOR</span> <span style="color:#66d9ef">UPDATE</span>;
+</code></pre></div><h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/29150809">MySQL锁总结</a></li>
+</ol>
+
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

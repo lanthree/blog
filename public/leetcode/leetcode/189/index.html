@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        189. 旋转数组
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/rotate-array/">原题链接</a></p>
+<p>直观的思路是使用一个额外数组：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> rotate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ans(nums.size(), <span style="color:#ae81ff">0</span>);
+
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> nums.size(); <span style="color:#f92672">++</span>i) {
+            ans[nxt(i, k, nums.size())] <span style="color:#f92672">=</span> nums[i];
+        }
+        nums <span style="color:#f92672">=</span> ans;
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> nxt(<span style="color:#66d9ef">int</span> cur, <span style="color:#66d9ef">int</span> k, <span style="color:#66d9ef">int</span> len) {
+        <span style="color:#66d9ef">return</span> (cur<span style="color:#f92672">+</span>k)<span style="color:#f92672">%</span>len;
+    }
+};
+</code></pre></div><p>之前学习<a href="https://engineers.cool/#/pages/Stereotyped/Data-Structures-&amp;-Algorithm/sort?id=%e9%97%b4%e6%8e%a5%e6%8e%92%e5%ba%8f">间接排序</a>时候，有发现它最后有原地替换的方式：环状替换，这里也可以适用，不过 需要一个额外的数组判断是否有替换过（方法三可以省略掉）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> rotate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> vis(nums.size(), false);
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> nums.size(); <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">if</span> (vis[i]) <span style="color:#66d9ef">continue</span>;
+
+            <span style="color:#66d9ef">int</span> nxt_pos <span style="color:#f92672">=</span> nxt(i, k, nums.size());
+            <span style="color:#66d9ef">int</span> cur_val <span style="color:#f92672">=</span> nums[i];
+            <span style="color:#66d9ef">while</span> (nxt_pos <span style="color:#f92672">!=</span> i) {
+                <span style="color:#66d9ef">int</span> tmp <span style="color:#f92672">=</span> nums[nxt_pos];
+                nums[nxt_pos] <span style="color:#f92672">=</span> cur_val;
+                vis[nxt_pos] <span style="color:#f92672">=</span> true;
+                cur_val <span style="color:#f92672">=</span> tmp;
+
+                nxt_pos <span style="color:#f92672">=</span> nxt(nxt_pos, k, nums.size());
+            }
+            nums[nxt_pos] <span style="color:#f92672">=</span> cur_val;
+            vis[nxt_pos] <span style="color:#f92672">=</span> true;
+        }
+    }
+
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> nxt(<span style="color:#66d9ef">int</span> cur, <span style="color:#66d9ef">int</span> k, <span style="color:#66d9ef">int</span> len) {
+        <span style="color:#66d9ef">return</span> (cur<span style="color:#f92672">+</span>k)<span style="color:#f92672">%</span>len;
+    }
+};
+</code></pre></div><p>这里开始是官方题解的代码。上面说到可以省略掉<code>vis</code>数组，省略的方法就是遍历前<code>gcd(k, n)</code>即可。<code>gcd(k, n)</code>是有一个证明（求解）过程的，可以参考官方题解。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> rotate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> nums.size();
+        k <span style="color:#f92672">=</span> k <span style="color:#f92672">%</span> n;
+        <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> gcd(k, n);
+
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; start <span style="color:#f92672">&lt;</span> count; <span style="color:#f92672">++</span>start) {
+            <span style="color:#66d9ef">int</span> prev <span style="color:#f92672">=</span> nums[start];
+            <span style="color:#66d9ef">int</span> current <span style="color:#f92672">=</span> start;
+            <span style="color:#66d9ef">do</span> {
+                <span style="color:#66d9ef">int</span> next <span style="color:#f92672">=</span> (current<span style="color:#f92672">+</span>k)<span style="color:#f92672">%</span>n;
+                swap(nums[next], prev);
+                current <span style="color:#f92672">=</span> next;
+            } <span style="color:#66d9ef">while</span> (start <span style="color:#f92672">!=</span> current);
+        }
+    }
+};
+</code></pre></div><p>另外，还可以不依赖<code>gcd(k, n)</code>这个值，可以额外用一个值来记录已经处理过的数字个数，当个数为n时就可以停止了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> rotate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> nums.size();
+        k <span style="color:#f92672">=</span> k <span style="color:#f92672">%</span> n;
+        <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; count <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>start) {
+            <span style="color:#66d9ef">int</span> prev <span style="color:#f92672">=</span> nums[start];
+            <span style="color:#66d9ef">int</span> current <span style="color:#f92672">=</span> start;
+            <span style="color:#66d9ef">do</span> {
+                <span style="color:#66d9ef">int</span> next <span style="color:#f92672">=</span> (current<span style="color:#f92672">+</span>k)<span style="color:#f92672">%</span>n;
+                swap(nums[next], prev);
+                count<span style="color:#f92672">++</span>;
+                current <span style="color:#f92672">=</span> next;
+            } <span style="color:#66d9ef">while</span> (start <span style="color:#f92672">!=</span> current);
+        }
+    }
+};
+</code></pre></div><p>最后的方法是，三次reverse：</p>
+<ol>
+<li>reserve整个数组</li>
+<li>把头半段 reverse为正顺</li>
+<li>把尾半段 reverse为正顺</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> reverse(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> start, <span style="color:#66d9ef">int</span> end) {
+        <span style="color:#66d9ef">while</span> (start <span style="color:#f92672">&lt;</span> end) {
+            swap(nums[start], nums[end]);
+            start <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+            end <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
+        }
+    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">rotate</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> k) {
+        k <span style="color:#f92672">%=</span> nums.size();
+        reverse(nums, <span style="color:#ae81ff">0</span>, nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+        reverse(nums, <span style="color:#ae81ff">0</span>, k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+        reverse(nums, k, nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

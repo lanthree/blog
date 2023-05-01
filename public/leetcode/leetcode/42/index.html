@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        42. 接雨水
+    </h1>    
+    <p><a href="https://leetcode-cn.com/problems/trapping-rain-water/">原题链接</a></p>
+<p>遍历每个柱子，计算这个柱子上能积多少水。其积水量等于 该柱子左右两侧的最低（若高于遍历的柱子）柱子的高度 减遍历到的柱子的高度。</p>
+<p>为了减少重复计算，可以迭代的计算出<code>leftMax[i]</code>（柱子i左侧的最高柱子的高度）和<code>rightMax[i]</code>（柱子i右侧的最高柱子的高度）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> trap(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> height) {
+        <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> height.size();
+        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> leftMax(len, <span style="color:#ae81ff">0</span>), rightMax(len, <span style="color:#ae81ff">0</span>);
+
+        leftMax[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> height[<span style="color:#ae81ff">0</span>];
+        rightMax[len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> height[len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> len; i<span style="color:#f92672">++</span>) {
+            leftMax[i] <span style="color:#f92672">=</span> max(leftMax[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], height[i]);
+            rightMax[len<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> max(rightMax[len<span style="color:#f92672">-</span>i], height[len<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);
+        }
+
+        <span style="color:#66d9ef">int</span> ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> len; i<span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">int</span> out_border <span style="color:#f92672">=</span> min(leftMax[i], rightMax[i]);
+            <span style="color:#66d9ef">if</span> (out_border <span style="color:#f92672">&lt;=</span> height[i]) {
+                <span style="color:#66d9ef">continue</span>;
+            }
+
+            ans <span style="color:#f92672">+=</span> out_border<span style="color:#f92672">-</span>height[i];
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>双指针（头、尾）维护<code>leftMax</code>和<code>rightMax</code>，如果双指针遍历时，只向内推进 双指针指向的值中较小的指针，那么推进的反方向的Max值一定是<code>min(leftMax[i], rightMax[i])</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> trap(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> height) {
+        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> height.size()<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">int</span> leftMax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, rightMax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+        <span style="color:#66d9ef">int</span> ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;=</span> right) {
+            leftMax <span style="color:#f92672">=</span> max(leftMax, height[left]);
+            rightMax <span style="color:#f92672">=</span> max(rightMax, height[right]);
+
+            <span style="color:#66d9ef">if</span> (height[left] <span style="color:#f92672">&lt;</span> height[right]) {
+                ans <span style="color:#f92672">+=</span> max(leftMax<span style="color:#f92672">-</span>height[left], <span style="color:#ae81ff">0</span>);
+                <span style="color:#f92672">++</span>left;
+            } <span style="color:#66d9ef">else</span> {
+                ans <span style="color:#f92672">+=</span> max(rightMax<span style="color:#f92672">-</span>height[right], <span style="color:#ae81ff">0</span>);
+                <span style="color:#f92672">--</span>right;
+            }
+        }
+
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div><p>最后一种是比较自然的遍历计算方法，单调栈维护阶梯下降的柱子，当遍历到大于栈顶的柱子时，则是发生坑的位置，随即pop栈自低向上计算坑的容量。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> trap(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> height) {
+        stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> st;
+        <span style="color:#66d9ef">int</span> ans <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> height.size(); <span style="color:#f92672">++</span>i) {
+            <span style="color:#66d9ef">while</span> (st.size() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> height[st.top()] <span style="color:#f92672">&lt;</span> height[i]) {
+                <span style="color:#66d9ef">int</span> bottom <span style="color:#f92672">=</span> st.top(); st.pop();
+                <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> st.top();
+
+                ans <span style="color:#f92672">+=</span> (min(height[left], height[i]) <span style="color:#f92672">-</span> height[bottom]) <span style="color:#f92672">*</span> (i<span style="color:#f92672">-</span>left<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+            }
+
+            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>st.empty() <span style="color:#f92672">&amp;&amp;</span> height[st.top()] <span style="color:#f92672">&lt;</span> height[i]) {
+                st.pop();
+            }
+
+            <span style="color:#66d9ef">if</span> (st.empty() <span style="color:#f92672">||</span> height[st.top()] <span style="color:#f92672">&gt;=</span> height[i]) {
+                st.push(i);
+            }
+        }
+        <span style="color:#66d9ef">return</span> ans;
+    }
+};
+</code></pre></div>
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

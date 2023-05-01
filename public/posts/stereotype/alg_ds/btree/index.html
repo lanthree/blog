@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        B树
+    </h1>    
+    <p>?&gt; 只有基本思想，没有代码。基本摘抄自《数据结构与算法分析 C++描述》。另外，网上一般看到的B树定义中，非叶结点也是会存储数据的，其他基本一样</p>
+<p>!&gt; 又看了算法导论，果然这里有问题，B树在中间节点也有数据，参考下面定义中1、2条的补充说明。</p>
+<p>假设磁盘上持久化维护着一颗查找树。如果它是普通的查找树，那么最坏情况下需要N次磁盘读取才能找到需要的值。为了减少磁盘访问次数（磁盘访问相对于CPU计算慢很多），AVL树可以把查找次数收敛到logN。为了仅一步减少查找次数，直观上，可以让结点有更多分支，自然就会有更少的高度。一颗完全二叉树的高度大约为$\log_2N$，一颗完全M叉树的高度大约是$\log_MN$。</p>
+<p><img src="https://engineers-cool-1251518258.cos.ap-chengdu.myqcloud.com/M_31_SYT.png" alt="图1：31个结点的5叉树只有3层"></p>
+<h2 id="定义">定义</h2>
+<p>在二叉查找树中，需要一个键来决定到底取用两个分支中哪一个；在M叉树中，则需要M-1个键。另外，必须制定平衡策略，以保障其不会退化成二叉树，甚至是链表。B树由此设计，原则上B树保证只有少数的磁盘访问（树的高度）。阶为M的B树是一颗具有下列结构特性的树：</p>
+<ol>
+<li>数据项存储在叶子上
+<ul>
+<li><em>看网上也有的定义是非叶子结点也可以存数据项，即没有这一条</em></li>
+</ul>
+</li>
+<li>非叶结点存储直到M-1个键，以指示搜索的方向；键i代表子树i+1中的最小的键
+<ul>
+<li><em>在网上看到的版本，键i还附带数据，所以键i分割其左右的子树，而不是代表子树i+1中的最小的键</em></li>
+</ul>
+</li>
+<li>树的根或者是一片树叶，或者其儿子树在2和M之间</li>
+<li>除根外，所有非树叶结点的儿子树在$\lceil M/2 \rceil$和M之间</li>
+<li>所有的树叶都在相同的深度上，并有$\lceil L/2 \rceil$和L之间个数数据项，稍后描述L的确定</li>
+</ol>
+<p>下图是一个5阶B树的一个例子。注意，所有的非树叶的结点的儿子树都在3和5之间（从而有2到4个键）；根可能只有两个儿子。设定L是5，因此每片树叶有3到5个数据项。</p>
+<p><img src="https://engineers-cool-1251518258.cos.ap-chengdu.myqcloud.com/5Btree.png" alt="图2：5阶B树"></p>
+<p>每个节点代表一个磁盘区块，我们可以据此选择M和L。例如，一个区块容纳8192字节，假设每个键32字节，M阶B树的结点有M-1个键，即<code>32M-32</code>字节，每个分支是4字节（指向其他内存区块），有M个分支，总共<code>36M-32</code>字节，使不超过8192字节的M最大值是228，因此M可以是228。假设每条记录是256字节，<code>8192/256=32</code>，那么可以选择L为32。那么假设满树的情况下，一层可以容纳<code>32*228=7296</code>个数据项，多一层则多228倍。另外，最坏情况下，树高近似是$\log_{M/2}{N}$</p>
+<h2 id="插入">插入</h2>
+<p>首先设想把57插入到图2的5阶B树中，沿树向下查找，把它作为第5个儿子添加到树叶中：</p>
+<p><img src="https://engineers-cool-1251518258.cos.ap-chengdu.myqcloud.com/5Btree_Insert57.png" alt="图3：将57插入到图2中的树后的B树"></p>
+<p>这是简单情况，因为该树叶还没有装满。现在设想再把55插入树中。观察上图可以发现，55想要插入的树叶已经满了，现在由于其父结点的子结点树不到L，所以可以把该叶子结点分成两片树叶，每片3项：</p>
+<p><img src="https://engineers-cool-1251518258.cos.ap-chengdu.myqcloud.com/5Btree_split_c.png" alt="图4：将55插入到图3的B树中引起分裂成两片树叶"></p>
+<p>再设想把40插入图4中，此时必须把包含键35到39而又要包含40的树叶，分成两片。但是，这将使父结点有6个儿子，可是它最多只能有5个儿子。因此，要分裂这个父结点。结果在下图给出：</p>
+<p><img src="https://engineers-cool-1251518258.cos.ap-chengdu.myqcloud.com/5Btree_split_f.png" alt="图5：树叶被分裂成两片 然后又造成父结点的分裂"></p>
+<p>正如这里的情形所示，当一个非树叶结点分裂时，它的父结点得到一个儿子。当父结点的儿子个数已经达到规定的限度，那么将沿树向上分裂结点，直到找到一个父结点它不需要再分裂，或者到达树根。如果需要分裂树根，那么需要建立一个新的根，这个根以分裂得到的两个树根作为它的两个儿子。这就是准许树根可以有两个儿子特权的原因。这也是B树增加高度的唯一方式。</p>
+<p>还有其他方式处理儿子过多的情况。一种方法是在相邻结点有空间时把一个儿子交给该结点领养。相对于直接分裂，这趋向于使得结点更满。</p>
+<h2 id="删除">删除</h2>
+<p>删除结点时，如果被删的项所在的树叶的数据项数已经是最小限度，那么可以通过在邻结点本身没有达到最小值时领养一个邻项来矫正这种状态。如果邻结点也已经是最小值，那么可以合并两个结点形成一个满页。可是，这会使得父结点失去一个儿子。如果失去儿子的结果又引起父结点的儿子数低于最小值，那么使用相同的策略继续进行。这个过程可以一直上行到根。如果根只剩一个儿子，那么删除根，并让这个儿子成为新根。这是B树降低高度的唯一的方式。</p>
+<p><img src="https://engineers-cool-1251518258.cos.ap-chengdu.myqcloud.com/5Btree_comb.png" alt="图6：从图5的B树删除99后的B树"></p>
+<h2 id="参考">参考</h2>
+<ol>
+<li>《数据结构与算法分析 C++描述》</li>
+<li><a href="https://zh.wikipedia.org/wiki/B%E6%A0%91">wikipedia B树</a></li>
+</ol>
+
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>

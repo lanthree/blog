@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang=""><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Engineers Cool</title>
+    <meta name="description" content="A simple monospaced resume theme for Hugo.">
+    <meta name="author" content='lanthree'>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="/sass/researcher.min.css">
+
+    
+        <link rel="icon" type="image/ico" href="https://engineers.cool/favicon.ico">
+    
+
+    
+        
+    
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+    <body><div class="container mt-5">
+    <nav class="navbar navbar-expand-sm flex-column flex-sm-row text-nowrap p-0">
+        <a class="navbar-brand mx-0 mr-sm-auto" href="https://engineers.cool/" title="Engineers Cool">
+          
+          Engineers Cool
+        </a>
+        <div class="navbar-nav flex-row flex-wrap justify-content-center">
+            
+                
+                
+                    <a class="nav-item nav-link" href="/posts" title="Posts">
+                        Posts
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/categories" title="Categories">
+                        Categories
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/leetcode" title="LeetCode">
+                        LeetCode
+                    </a>
+                    
+                        <span class="nav-item navbar-text mx-1">/</span>
+                    
+                
+                    <a class="nav-item nav-link" href="/resume" title="Resume">
+                        Resume
+                    </a>
+                    
+                
+            
+        </div>
+    </nav>
+</div>
+<hr class="container-hr"><div id="content">
+<div class="container">
+    <h1 class="posttitle">
+        排序
+    </h1>    
+    <h2 id="冒泡排序">冒泡排序</h2>
+<p>时间复杂度O(n^2)</p>
+<ol>
+<li>每次从尾到头（已排序列的尾部）迭代遍历，把相邻数字的更小（大）的元素放前面</li>
+<li>重复1步，直到所有元素均排序完毕。</li>
+</ol>
+<h2 id="选择排序">选择排序</h2>
+<p>时间复杂度O(n^2)</p>
+<ol>
+<li>首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置（与之交换位置即可）。</li>
+<li>再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾（同1）。</li>
+<li>重复第2步，直到所有元素均排序完毕。</li>
+</ol>
+<h2 id="插入排序">插入排序</h2>
+<p>插入排序由N-1此插入组成，对于第i趟，把下标i的数字插入到下标0~i的合适位置。时间复杂度O(n^2)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> insertionSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  <span style="color:#66d9ef">int</span> j;
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; p <span style="color:#f92672">&lt;</span> v.size(); p<span style="color:#f92672">++</span>) {
+    Comparable tmp <span style="color:#f92672">=</span> v[p];
+    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> p; j <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> tmp <span style="color:#f92672">&lt;</span> v[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]; j<span style="color:#f92672">--</span>) {
+      v[j] <span style="color:#f92672">=</span> v[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]; 
+    }   
+    v[j] <span style="color:#f92672">=</span> tmp;
+  }
+}
+</code></pre></div><p>可能的STL实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iterator, <span style="color:#66d9ef">typename</span> Comparator, <span style="color:#66d9ef">typename</span> Object<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _insertionSort(<span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> begin, <span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> end, Comparator lessThan, <span style="color:#66d9ef">const</span> Object<span style="color:#f92672">&amp;</span> obj) {
+  Iterator j;
+  <span style="color:#66d9ef">for</span> (Iterator p <span style="color:#f92672">=</span> begin <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; p <span style="color:#f92672">!=</span> end; <span style="color:#f92672">++</span>p) {
+    Object tmp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>p; 
+    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> p; j <span style="color:#f92672">!=</span> begin <span style="color:#f92672">&amp;&amp;</span> lessThan(tmp, <span style="color:#f92672">*</span>(j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)); <span style="color:#f92672">--</span>j) {
+      <span style="color:#f92672">*</span>j <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); 
+    }   
+    <span style="color:#f92672">*</span>j <span style="color:#f92672">=</span> tmp;
+  }
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iterator, <span style="color:#66d9ef">typename</span> Comparator<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> insertionSort(<span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> begin, <span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> end, Comparator lessThan) {
+  <span style="color:#66d9ef">if</span> (begin <span style="color:#f92672">!=</span> end) _insertionSort(begin, end, lessThan, <span style="color:#f92672">*</span>begin);
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iterator, <span style="color:#66d9ef">typename</span> Object<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _insertionSortHelp(<span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> begin, <span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> end, <span style="color:#66d9ef">const</span> Object<span style="color:#f92672">&amp;</span> obj) {
+  insertionSort(begin, end, less<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span>());
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Iterator<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> insertionSort(<span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> begin, <span style="color:#66d9ef">const</span> Iterator<span style="color:#f92672">&amp;</span> end) {
+  <span style="color:#66d9ef">if</span> (begin <span style="color:#f92672">!=</span> end) _insertionSortHelp(begin, end, <span style="color:#f92672">*</span>begin);
+}
+</code></pre></div><h2 id="谢尔排序">谢尔排序</h2>
+<p>通过多趟比较相距一定间隔的蒜素来工作：各趟比较所用的间隔随着算法的进行而减小，直到只比较相邻元素的最后一趟为止。谢尔也叫<strong>缩减增量排序</strong>。</p>
+<p>谢尔排序使用一个序列 h1,h2,&hellip;hi，叫做<strong>增量序列</strong>。只要<code>h1=1</code>，任何增量序列都可以。不过，有些增量序列比另外一些增量序列更好。</p>
+<p>使用谢尔增量的排序，时间复杂度O(n^2)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> shellSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> gap <span style="color:#f92672">=</span> v.size() <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; gap <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; gap <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> gap; p <span style="color:#f92672">&lt;</span> v.size(); <span style="color:#f92672">++</span>p) {
+      Comparable tmp <span style="color:#f92672">=</span> v[p];
+      <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> p;
+      <span style="color:#66d9ef">for</span> (; j <span style="color:#f92672">&gt;=</span> gap <span style="color:#f92672">&amp;&amp;</span> tmp <span style="color:#f92672">&lt;</span> v[j <span style="color:#f92672">-</span> gap]; j <span style="color:#f92672">-=</span> gap) {
+        v[j] <span style="color:#f92672">=</span> v[j <span style="color:#f92672">-</span> gap];
+      }   
+      v[j] <span style="color:#f92672">=</span> tmp;
+    }   
+}
+</code></pre></div><h2 id="堆排序">堆排序</h2>
+<p>构建大顶堆，然后逐个取走堆顶（放到数组最后）。时间复杂度O(nlogn)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_leftChild</span>(<span style="color:#66d9ef">int</span> p) { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; }
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _percDown(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, <span style="color:#66d9ef">int</span> p, <span style="color:#66d9ef">int</span> n) {
+  <span style="color:#66d9ef">int</span> child;
+
+  Comparable tmp <span style="color:#f92672">=</span> v[p];
+  <span style="color:#66d9ef">for</span> (; _leftChild(p) <span style="color:#f92672">&lt;</span> n; p <span style="color:#f92672">=</span> child) {
+    child <span style="color:#f92672">=</span> _leftChild(p);
+    <span style="color:#75715e">// 找大的子
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (child <span style="color:#f92672">!=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> v[child] <span style="color:#f92672">&lt;</span> v[child <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) child<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">if</span> (tmp <span style="color:#f92672">&lt;</span> v[child])  <span style="color:#75715e">// 比大的子小，则该子上升，父继续下滤
+</span><span style="color:#75715e"></span>      v[p] <span style="color:#f92672">=</span> v[child];
+    <span style="color:#66d9ef">else</span>  <span style="color:#75715e">// 比大的子大，子本身已合法，则当前合法，保持不变
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">break</span>;
+  }
+  v[p] <span style="color:#f92672">=</span> tmp;
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> heapSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  <span style="color:#75715e">// buildHeap
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// 从第一个不是叶子结点的结点开始
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> (v.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#f92672">--</span>i) {
+    _percDown(v, i, v.size());
+  }
+
+  <span style="color:#75715e">// deleteMax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> v.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#f92672">--</span>j) {
+    swap(v[<span style="color:#ae81ff">0</span>], v[j]);
+    _percDown(v, <span style="color:#ae81ff">0</span>, j); 
+  }
+}
+</code></pre></div><h2 id="归并排序">归并排序</h2>
+<p>归并（<code>_merge</code>）是合并两个有序的数组，归并排序就是递归的分解&amp;&amp;合并数组。时间复杂度O(nlogn)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _merge(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> tmp,
+    <span style="color:#66d9ef">int</span> left_bg, <span style="color:#66d9ef">int</span> right_bg, <span style="color:#66d9ef">int</span> right_ed) {
+  <span style="color:#66d9ef">int</span> left_ed <span style="color:#f92672">=</span> right_bg <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#66d9ef">int</span> num_cnt <span style="color:#f92672">=</span> right_ed <span style="color:#f92672">-</span> left_bg <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#66d9ef">int</span> tmp_p <span style="color:#f92672">=</span> left_bg;
+
+  <span style="color:#66d9ef">while</span> (left_bg <span style="color:#f92672">&lt;=</span> left_ed <span style="color:#f92672">&amp;&amp;</span> right_bg <span style="color:#f92672">&lt;=</span> right_ed) {
+    <span style="color:#66d9ef">if</span> (v[left_bg] <span style="color:#f92672">&lt;</span> v[right_bg])
+      tmp[tmp_p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> v[left_bg<span style="color:#f92672">++</span>];
+    <span style="color:#66d9ef">else</span>
+      tmp[tmp_p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> v[right_bg<span style="color:#f92672">++</span>];
+  }
+
+  <span style="color:#66d9ef">while</span> (left_bg <span style="color:#f92672">&lt;=</span> left_ed) {
+    tmp[tmp_p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> v[left_bg<span style="color:#f92672">++</span>];
+  }
+
+  <span style="color:#66d9ef">while</span> (right_bg <span style="color:#f92672">&lt;=</span> right_ed) {
+    tmp[tmp_p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> v[right_bg<span style="color:#f92672">++</span>];
+  }
+
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> right_ed; num_cnt<span style="color:#f92672">--</span>; <span style="color:#f92672">--</span>p) v[p] <span style="color:#f92672">=</span> tmp[p];
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _mergeSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> tmp, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+  <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">==</span> right) <span style="color:#66d9ef">return</span>;
+
+  <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+  _mergeSort(v, tmp, left, mid);
+  _mergeSort(v, tmp, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right);
+  _merge(v, tmp, left, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right);
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> mergeSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;</span> tmp_v(v.size());
+  _mergeSort(v, tmp_v, <span style="color:#ae81ff">0</span>, v.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); 
+}
+</code></pre></div><h2 id="快速排序">快速排序</h2>
+<p>简单的，递归时选第一个元素为锚点，时间复杂度最坏O(n^2)：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _quickSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+  <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">&gt;=</span> right) <span style="color:#66d9ef">return</span>;
+  <span style="color:#75715e">// 选第一个元素为锚点
+</span><span style="color:#75715e"></span>  Comparable pivot <span style="color:#f92672">=</span> v[left];
+
+  <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> left;
+  <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> right;
+  <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">&gt;</span> l <span style="color:#f92672">&amp;&amp;</span> v[r] <span style="color:#f92672">&gt;</span> pivot) r<span style="color:#f92672">--</span>;
+    <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">&lt;</span> r) v[l<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> v[r];
+    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">&gt;</span> l <span style="color:#f92672">&amp;&amp;</span> v[l] <span style="color:#f92672">&lt;</span> pivot) l<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">&lt;</span> r) v[r<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> v[l];
+  }
+  v[l] <span style="color:#f92672">=</span> pivot;
+  _quickSort(v, left, l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); 
+  _quickSort(v, l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right);
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> quickSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  _quickSort(v, <span style="color:#ae81ff">0</span>, v.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); 
+}
+</code></pre></div><p>如果输入参数本身是有序的，那么这个算法的递归层次等于数组大小，时间复杂度达到最差。</p>
+<p>一个可能的思路是，随机取这段<code>_quickSort</code>的一个数字作为锚点，但是随机数的消耗不小。另外一个思路是<strong>三数中值分割法</strong>：最好的锚点之是第<code>N/2</code>个大的数，但是未排序数组不好得出，一个简化的方法是取三个数字，取其中间的未锚点：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> insertSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> right; i<span style="color:#f92672">++</span>) {
+    Comparable tmp <span style="color:#f92672">=</span> v[i];
+
+    <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i;
+    <span style="color:#66d9ef">for</span> (; j <span style="color:#f92672">&gt;</span> left <span style="color:#f92672">&amp;&amp;</span> tmp <span style="color:#f92672">&lt;</span> v[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]; <span style="color:#f92672">--</span>j) v[j] <span style="color:#f92672">=</span> v[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]; 
+    v[j] <span style="color:#f92672">=</span> tmp;
+  }
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">const</span> Comparable<span style="color:#f92672">&amp;</span> _median3(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+  <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+  <span style="color:#66d9ef">if</span> (v[mid] <span style="color:#f92672">&lt;</span> v[left]) swap(v[mid], v[left]);
+  <span style="color:#66d9ef">if</span> (v[right] <span style="color:#f92672">&lt;</span> v[left]) swap(v[right], v[left]);
+  <span style="color:#66d9ef">if</span> (v[right] <span style="color:#f92672">&lt;</span> v[mid]) swap(v[right], v[mid]);
+  <span style="color:#75715e">// 已中间值为锚点，v[left]、v[right]已经处于合适的位置
+</span><span style="color:#75715e"></span>
+  swap(v[mid], v[left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]);  <span style="color:#75715e">// 先放这里，相当于有个空位
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> v[left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]; 
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> _quickSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+  <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">&gt;=</span> right) <span style="color:#66d9ef">return</span>;
+
+  <span style="color:#75715e">// 不够三个值了，换插入排序
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (right <span style="color:#f92672">-</span> left <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>) {
+    insertSort(v, left, right);
+    <span style="color:#66d9ef">return</span>;
+  }
+
+  Comparable pivot <span style="color:#f92672">=</span> _median3(v, left, right);
+
+  <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> right <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">&gt;</span> l <span style="color:#f92672">&amp;&amp;</span> v[r] <span style="color:#f92672">&gt;</span> pivot) r<span style="color:#f92672">--</span>;
+    <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">&lt;</span> r) v[l<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> v[r];
+    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">&gt;</span> l <span style="color:#f92672">&amp;&amp;</span> v[l] <span style="color:#f92672">&lt;</span> pivot) l<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">&lt;</span> r) v[r<span style="color:#f92672">--</span>] <span style="color:#f92672">=</span> v[l];
+  }
+  v[l] <span style="color:#f92672">=</span> pivot;
+  _quickSort(v, left, l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); 
+  _quickSort(v, l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right);
+}
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> quickSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  _quickSort(v, <span style="color:#ae81ff">0</span>, v.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>); 
+}
+</code></pre></div><h2 id="间接排序">间接排序</h2>
+<p>这里考虑的问题主要是，以上排序过程中，有大量的复制操作，如果复制操作消耗很大，那么需要引入指针数组，对其排序后，最后只按排序后的顺序挪动一次对象。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pointer</span> {
+ <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+  Pointer(Comparable<span style="color:#f92672">*</span> rhs <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>) <span style="color:#f92672">:</span> pointee(rhs) {}
+
+  <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;</span>(<span style="color:#66d9ef">const</span> Pointer<span style="color:#f92672">&amp;</span> rhs) <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>pointee <span style="color:#f92672">&lt;</span> <span style="color:#f92672">*</span>rhs.pointee; }
+
+  <span style="color:#66d9ef">operator</span> Comparable<span style="color:#f92672">*</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> pointee; }
+
+ <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+  Comparable<span style="color:#f92672">*</span> pointee;
+};
+
+<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Comparable<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">void</span> largeObjectSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&amp;</span> v) {
+  std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Pointer<span style="color:#f92672">&lt;</span>Comparable<span style="color:#f92672">&gt;&gt;</span> p(v.size());
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> v.size(); <span style="color:#f92672">++</span>i) p[i] <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>v[i];
+
+  quickSort(p);
+
+  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> v.size(); <span style="color:#f92672">++</span>i)
+    <span style="color:#66d9ef">if</span> (p[i] <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>v[i]) {
+      Comparable tmp <span style="color:#f92672">=</span> v[i];
+      <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i, nextj;
+      <span style="color:#66d9ef">for</span> (; p[j] <span style="color:#f92672">!=</span> <span style="color:#f92672">&amp;</span>v[i]; j <span style="color:#f92672">=</span> nextj) {
+        nextj <span style="color:#f92672">=</span> p[j] <span style="color:#f92672">-</span> <span style="color:#f92672">&amp;</span>v[<span style="color:#ae81ff">0</span>];
+        v[j] <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>p[j];
+        p[j] <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>v[j];
+      }   
+      v[j] <span style="color:#f92672">=</span> tmp;
+      p[j] <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>v[j];
+    }   
+}
+</code></pre></div><p>注意：<code>Pointer</code>只重载了<code>operator&lt;</code>，没有重载<code>operator&gt;</code>，这要求<code>quickSort</code>的实现是能用<code>&lt;</code>比较大小！因为上面实现的<code>quickSort</code>用了到<code>&gt;</code>，所以我在测试时总是不正确&hellip;</p>
+<h2 id="计数排序">计数排序</h2>
+<p>如果序列中值的值域范围比较小，可以使用计数排序排序，即统计每个值出现的次数，然后展开成序列。</p>
+<h2 id="桶排序">桶排序</h2>
+<p>先把序列hash到K个桶中，每个桶单独排序，最后再归并即可。</p>
+<h2 id="基数排序">基数排序</h2>
+<p>基数排序（radix sort）属于“分配式排序”（distribution sort），是一种非比较型整数排序算法，其原理是将 待排key 按段切割成不同的部分，然后按每个部分分别比较。基数排序的方式可以采用LSD（Least significant digital）或MSD（Most significant digital），LSD的排序方式由键值的最右边开始，而MSD则相反，由键值的最左边开始。</p>
+<p>正整数序列的LSD的过程例如：将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列。</p>
+<h2 id="外部排序">外部排序</h2>
+<p>如果输入数据过大，以至于不能全部载入内容，这时就需要外部排序。基本的外部排序算法使用归并排序中的合并算法。基本思路是：</p>
+<ol>
+<li>分段排序
+<ol>
+<li>分段载入内存能处理的最大长度，排序后写入磁盘</li>
+</ol>
+</li>
+<li>合并
+<ol>
+<li>给每两段有序序列做合并，合并成2被大小的有序序列，边合并边写磁盘</li>
+<li>重复合并过程，直至合并成一个序列</li>
+</ol>
+</li>
+</ol>
+
+</div>
+
+        </div><div id="footer" class="mb-5">
+    <hr class="container-hr">
+    <div class="container text-center">
+        
+            <a href="mailto:lanthree@qq.com" class="fas fa-envelope fa-1x" title="E-mail"></a>
+        
+    </div>
+    
+        <div class="container text-center">
+            <a href="https://github.com/lanthree" title="By Lanthree"><small>By Lanthree</small></a>
+        </div>
+        <div class="container footer-beian">
+            <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery)">粤ICP备2021050312号</a>
+        </div>
+    
+</div>
+<script src="/js/code-copy.js"></script>
+</body>
+</html>
